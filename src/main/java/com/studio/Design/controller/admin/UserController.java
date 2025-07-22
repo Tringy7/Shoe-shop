@@ -59,6 +59,24 @@ public class UserController {
 
     @GetMapping("/admin/user/update/{id}")
     public String showUserUpdate(Model model, @PathVariable("id") Long id) {
+        model.addAttribute("user", this.userService.getUser(id));
         return "admin/user/update";
+    }
+
+    @PostMapping("/admin/user/update/{id}")
+    public String handleUserUpdate(
+            @Valid @ModelAttribute("user") User user,
+            BindingResult userBindingResult,
+            @RequestParam("avatarFile") MultipartFile file
+    ) {
+        if (userBindingResult.hasErrors()) {
+            return "admin/user/create";
+        }
+
+        if (file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
+            user.setAvatar(handleUploadFile.uploadFile(file, "user"));
+        }
+        this.userService.updateUser(user);
+        return "redirect:/admin";
     }
 }
