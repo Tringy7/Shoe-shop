@@ -1,14 +1,21 @@
 package com.studio.Design.domain;
 
-import jakarta.persistence.*;
+import java.util.List;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.List;
 
 @Entity
 @Table(name = "products")
@@ -39,8 +46,9 @@ public class Product {
     private long quantity;
 
     private long sold;
-    private String factory;
-    private String target;
+    private String brand;
+    private String size;
+    private String color;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
     private List<OrderDetail> orderDetails;
