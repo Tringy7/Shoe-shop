@@ -70,13 +70,26 @@ public class UserController {
             @RequestParam("avatarFile") MultipartFile file
     ) {
         if (userBindingResult.hasErrors()) {
-            return "admin/user/create";
+            return "admin/user/update";
         }
 
         if (file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
             user.setAvatar(handleUploadFile.uploadFile(file, "user"));
         }
         this.userService.updateUser(user);
-        return "redirect:/admin";
+        return "redirect:/admin/user";
     }
+
+    @GetMapping("/admin/user/delete/{id}")
+    public String showUserDelete(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("user", this.userService.getUser(id));
+        return "admin/user/delete";
+    }
+
+    @PostMapping("/admin/user/delete/{id}")
+    public String handleUserDelete(@PathVariable("id") Long id) {
+        this.userService.deleteUser(id);
+        return "redirect:/admin/user";
+    }
+
 }

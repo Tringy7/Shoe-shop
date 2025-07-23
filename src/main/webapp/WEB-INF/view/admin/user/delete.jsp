@@ -79,74 +79,24 @@
                     <!-- Form Start -->
                     <div class="container-fluid pt-4 px-4">
                         <div class="row g-4">
-                            <div class="col-sm-12 col-xl-6 mx-auto">
-                                <div class="bg-secondary rounded h-100 p-4">
-                                    <h6 class="mb-4">Update user</h6>
-                                    <form:form action="/admin/user/update/${user.id}" method="POST"
-                                        modelAttribute="user" enctype="multipart/form-data">
-                                        <form:input type="hidden" path="password"></form:input>
-                                        <div class="row mb-3">
-                                            <c:set var="nameHasBindError">
-                                                <form:errors path="email" />
-                                            </c:set>
-                                            <label class="col-sm-2 col-form-label">Email</label>
-                                            <div class="col-sm-10">
-                                                <form:input path="email" type="email" readonly="true"
-                                                    class="form-control ${not empty nameHasBindError? 'is-invalid':''}" />
-                                            </div>
-                                            <form:errors path="email" cssClass="invalid-feedback" />
+                            <div class="col-sm-12 col-xl-6 mx-auto"> <!-- Thêm mx-auto vào đây -->
+                                <div class="bg-secondary rounded h-100 p-4 text-center">
+                                    <form action="/admin/user/delete/${user.id}" method="POST">
+                                        <div class="alert alert-primary alert-dismissible fade show d-inline-block"
+                                            role="alert">
+                                            <i class="fa fa-exclamation-circle me-2"></i>Do you delete user
+                                            ${user.fullName}
+                                            <input type="hidden" id="id" value="${user.id}">
+                                            <button type="submit" class="btn btn-danger m-2">Delete</button>
+                                            <a href="/admin/user" class="btn btn-secondary m-2"
+                                                id="closeModal">Cancel</a>
                                         </div>
-                                        <div class="row mb-3">
-                                            <c:set var="nameHasBindError">
-                                                <form:errors path="fullName" />
-                                            </c:set>
-                                            <label class="col-sm-2 col-form-label">FullName</label>
-                                            <div class="col-sm-10">
-                                                <form:input path="fullName" type="text"
-                                                    class="form-control ${not empty nameHasBindError? 'is-invalid':''}" />
-                                            </div>
-                                            <form:errors path="fullName" cssClass="invalid-feedback" />
-                                        </div>
-                                        <div class="row mb-3">
-                                            <label class="col-sm-2 col-form-label">Phone</label>
-                                            <div class="col-sm-10">
-                                                <form:input path="phone" type="text" class="form-control" id="phone" />
-                                            </div>
-                                        </div>
-
-                                        <div class="row mb-3">
-                                            <label class="col-sm-2 col-form-label">Address</label>
-                                            <div class="col-sm-10">
-                                                <form:input path="address" type="text" class="form-control" />
-                                            </div>
-                                        </div>
-                                        <div class="mb-3">
-                                            <div class="form-floating mb-3">
-                                                <form:select path="role.id" class="form-select" id="floatingSelect"
-                                                    aria-label="Floating label select example">
-                                                    <option selected="">Role</option>
-                                                    <form:option value="1">ADMIN</form:option>
-                                                    <form:option value="2">USER</form:option>
-                                                </form:select>
-                                                <label for="floatingSelect">Works with selects</label>
-                                            </div>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="formFile" class="form-label">Avatar</label>
-                                            <input class="form-control bg-dark" type="file" id="avatarFile"
-                                                name="avatarFile">
-                                            <form:input path="avatar" type="hidden" />
-                                        </div>
-                                        <div class="mb-3">
-                                            <img src="" alt="" style="max-height: 250px; display: none;"
-                                                id="avatarPreview">
-                                        </div>
-                                        <button type="submit" class="btn btn-warning">Update</button>
-                                    </form:form>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
+
 
                     <!-- Back to Top -->
                     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i

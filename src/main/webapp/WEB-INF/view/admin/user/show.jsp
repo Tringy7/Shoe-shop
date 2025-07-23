@@ -32,6 +32,10 @@
 
         <!-- Template Stylesheet -->
         <link href="/admin/css/style.css" rel="stylesheet">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+
     </head>
 
     <body>
@@ -105,7 +109,6 @@
                 <!-- Table End -->
             </div>
             <!-- Content End -->
-
 
             <!-- Back to Top -->
             <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>

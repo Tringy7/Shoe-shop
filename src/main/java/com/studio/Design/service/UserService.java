@@ -55,4 +55,12 @@ public class UserService {
             this.userRepository.save(temp);
         }
     }
+
+    @Transactional
+    public void deleteUser(Long id) {
+        Optional<User> user = this.userRepository.findById(id);
+        if (user.isPresent()) {
+            this.userRepository.deleteById(id);
+        }
+    }
 }
