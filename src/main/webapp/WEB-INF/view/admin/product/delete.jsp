@@ -81,14 +81,14 @@
                         <div class="row g-4">
                             <div class="col-sm-12 col-xl-6 mx-auto"> <!-- Thêm mx-auto vào đây -->
                                 <div class="bg-secondary rounded h-100 p-4 text-center">
-                                    <form action="/admin/user/delete/${user.id}" method="POST">
+                                    <form action="/admin/product/delete/${product.id}" method="POST">
                                         <div class="alert alert-primary alert-dismissible fade show d-inline-block"
                                             role="alert">
-                                            <i class="fa fa-exclamation-circle me-2"></i>Do you delete user
-                                            ${user.fullName}
+                                            <i class="fa fa-exclamation-circle me-2"></i>Do you delete product
+                                            ${product.name}
                                             <input type="hidden" id="id" value="${user.id}">
                                             <button type="submit" class="btn btn-danger m-2">Delete</button>
-                                            <a href="/admin/user" class="btn btn-secondary m-2"
+                                            <a href="/admin/product" class="btn btn-secondary m-2"
                                                 id="closeModal">Cancel</a>
                                         </div>
                                     </form>

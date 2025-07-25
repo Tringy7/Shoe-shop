@@ -34,12 +34,13 @@ public class UserService {
 
     @Transactional
     public void createUser(User user) {
-        Role role = this.roleService.getRoleById(user.getRole().getId());
+        Long temp = user.getRole().getId();
+        Role role = this.roleService.getRoleById(temp);
         if (role != null) {
             user.setPassword(this.passwordEncoder.encode(user.getPassword()));
             user.setRole(role);
             this.userRepository.save(user);
-        }
+        } 
     }
 
     public User getUser(Long id) {

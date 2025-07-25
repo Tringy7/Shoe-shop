@@ -54,7 +54,7 @@ public class UserController {
             user.setAvatar(handleUploadFile.uploadFile(file, "user"));
         }
         this.userService.createUser(user);
-        return "redirect:/admin";
+        return "redirect:/admin/user";
     }
 
     @GetMapping("/admin/user/update/{id}")

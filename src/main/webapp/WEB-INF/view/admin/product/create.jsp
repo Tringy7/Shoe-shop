@@ -95,43 +95,19 @@
                                                 <form:input path="price" type="number" class="form-control" />
                                             </div>
                                         </div>
-                                        <div class="row mb-3">
-                                            <label class="col-sm-2 col-form-label">Quantity</label>
-                                            <div class="col-sm-10">
-                                                <form:input path="quantity" type="number" class="form-control" />
-                                            </div>
-                                        </div>
-                                        <div class="row mb-3">
-                                            <label class="col-sm-2 col-form-label">Sold</label>
-                                            <div class="col-sm-10">
-                                                <form:input path="sold" type="number" class="form-control" />
-                                            </div>
-                                        </div>
                                         <div class="mb-3">
                                             <div class="form-floating mb-3">
                                                 <form:select path="brand" class="form-select" id="floatingSelect"
                                                     aria-label="Floating label select example">
-                                                    <option selected="">Brand</option>
                                                     <form:option value="Nike">Nike</form:option>
                                                     <form:option value="Adidas">Adidas</form:option>
                                                     <form:option value="Merrel">Merrel</form:option>
                                                     <form:option value="Gucci">Gucci</form:option>
                                                     <form:option value="Skechers">Skechers</form:option>
                                                 </form:select>
-                                                <label for="floatingSelect">Works with selects</label>
+                                                <label for="floatingSelect">Brand</label>
                                             </div>
-                                            <div class="form-floating mb-3">
-                                                <form:select path="size" class="form-select" id="floatingSelect"
-                                                    aria-label="Floating label select example">
-                                                    <option selected="">Size</option>
-                                                    <form:option value="S">S</form:option>
-                                                    <form:option value="M">M</form:option>
-                                                    <form:option value="L">L</form:option>
-                                                    <form:option value="XL">XL</form:option>
-                                                    <form:option value="XXL">XXL</form:option>
-                                                </form:select>
-                                                <label for="floatingSelect">Works with selects</label>
-                                            </div>
+
                                             <div class="form-floating mb-3">
                                                 <form:select path="color" class="form-select" id="floatingSelect"
                                                     aria-label="Floating label select example">
@@ -143,13 +119,53 @@
                                                     <form:option value="Orange">Orange</form:option>
                                                     <form:option value="Grey">Grey</form:option>
                                                 </form:select>
-                                                <label for="floatingSelect">Works with selects</label>
+                                                <label for="floatingSelect">Colors</label>
                                             </div>
                                         </div>
-                                        <div class="mb-3">
-                                            <label for="formFile" class="form-label">Image</label>
-                                            <input class="form-control bg-dark" type="file" id="avatarFile"
-                                                name="avatarFile">
+
+                                        <div class="form-floating mb-3">
+                                            <div class="mb-3 row">z
+                                                <!-- S -->
+                                                <input type="hidden" name="detailList[0].size" value="S" />
+                                                <label class="col-sm-1 col-form-label">S</label>
+                                                <div class="col-sm-2">
+                                                    <input type="number" class="form-control"
+                                                        name="detailList[0].quantity" />
+                                                </div>
+
+                                                <!-- M -->
+                                                <input type="hidden" name="detailList[1].size" value="M" />
+                                                <label class="col-sm-1 col-form-label">M</label>
+                                                <div class="col-sm-2">
+                                                    <input type="number" class="form-control"
+                                                        name="detailList[1].quantity" />
+                                                </div>
+
+<%--                                                <!-- L -->--%>
+<%--                                                <input type="hidden" name="detailList[2].size" value="L" />--%>
+<%--                                                <label class="col-sm-1 col-form-label">L</label>--%>
+<%--                                                <div class="col-sm-2">--%>
+<%--                                                    <input type="number" class="form-control"--%>
+<%--                                                        name="detailList[2].quantity" />--%>
+<%--                                                </div>--%>
+
+<%--                                                <!-- XL -->--%>
+<%--                                                <input type="hidden" name="detailList[3].size" value="XL" />--%>
+<%--                                                <label class="col-sm-1 col-form-label">XL</label>--%>
+<%--                                                <div class="col-sm-2">--%>
+<%--                                                    <input type="number" class="form-control"--%>
+<%--                                                        name="detailList[3].quantity" />--%>
+<%--                                                </div>--%>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="mb-3 row">
+                                            <label for="formFile" class="form-label col-2">Image</label>
+                                            <div class="col-10">
+                                                <input class="form-control bg-dark" type="file" id="avatarFile"
+                                                    name="avatarFile">
+                                            </div>
                                         </div>
                                         <div class="mb-3">
                                             <img src="" alt="" style="max-height: 250px; display: none;"

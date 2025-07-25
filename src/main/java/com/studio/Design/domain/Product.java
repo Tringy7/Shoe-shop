@@ -42,12 +42,7 @@ public class Product {
     @Column(columnDefinition = "MEDIUMTEXT")
     private String shortDesc;
 
-    @Min(1)
-    private long quantity;
-
-    private long sold;
     private String brand;
-    private String size;
     private String color;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
@@ -55,4 +50,8 @@ public class Product {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
     private List<CartDetail> cartDetails;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+    private List<ProductDetail> productDetails;
+
 }

@@ -7,7 +7,6 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-@EnableWebMvc
 public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
@@ -24,20 +23,5 @@ public class WebMvcConfig implements WebMvcConfigurer {
         //         .addResourceLocations("/resources/error/");
         registry.addResourceHandler("/admin/**")
                 .addResourceLocations("/resources/admin/");
-    }
-
-    @Bean(name = "multipartResolver")
-    public CommonsMultipartResolver multipartResolver() {
-        CommonsMultipartResolver resolver = new CommonsMultipartResolver();
-
-        resolver.setMaxUploadSize(524288000); // 500MB tổng cộng
-        resolver.setMaxUploadSizePerFile(10485760); // 10MB mỗi file
-
-        // cấu hình fileCountMax
-        ServletFileUpload upload = new ServletFileUpload();
-        upload.setFileCountMax(50); // ✅ Tăng số file tối đa được upload
-
-        resolver.setFileUpload(upload);
-        return resolver;
     }
 }

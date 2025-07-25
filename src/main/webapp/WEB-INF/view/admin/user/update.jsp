@@ -124,11 +124,10 @@
                                             <div class="form-floating mb-3">
                                                 <form:select path="role.id" class="form-select" id="floatingSelect"
                                                     aria-label="Floating label select example">
-                                                    <option selected="">Role</option>
                                                     <form:option value="1">ADMIN</form:option>
                                                     <form:option value="2">USER</form:option>
                                                 </form:select>
-                                                <label for="floatingSelect">Works with selects</label>
+                                                <label for="floatingSelect">Role</label>
                                             </div>
                                         </div>
                                         <div class="mb-3">

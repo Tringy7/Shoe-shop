@@ -90,28 +90,26 @@
                                             </thead>
                                             <tbody>
                                                 <c:forEach items="${productList}" var="product" varStatus="loop">
-                                                    <tr>
-                                                        <th scope="row">${status.index + 1}</th>
-                                                        <td><img src="/admin/img/product/${product.image}"
-                                                                class="img-fluid me-5 rounded-circle"
-                                                                style="width: 80px; height: 80px;" alt=""></td>
-                                                        <td>${product.name}</td>
-                                                        <td>${product.fullName}</td>
-                                                        <td>
-                                                            <fmt:formatNumber type="number" value="${product.price}" />
-                                                        </td>
-                                                        <td>${product.quantity}</td>
-                                                        <td>${product.sold}</td>
-                                                        <td>${product.brand}</td>
-                                                        <td>${product.size}</td>
-                                                        <td>${product.color}</td>
-                                                        <td>
-                                                            <a href="/admin/product/update/${user.id}"
+                                                   <!-- <tr>
+<%--                                                        <th scope="row">${status.index + 1}</th>--%>
+<%--                                                        <td><img src="/admin/img/product/${product.image}"--%>
+<%--                                                                class="img-fluid me-5 rounded-circle"--%>
+<%--                                                                style="width: 80px; height: 80px;" alt=""></td>--%>
+<%--                                                        <td>${product.name}</td>--%>
+<%--                                                        <td>--%>
+<%--                                                            <fmt:formatNumber type="number" value="${product.price}" />--%>
+<%--                                                        </td>--%>
+<%--                                                        <td>${product.quantity}</td> --%>
+<%--                                                        <td>${product.sold}</td>--%>
+<%--                                                        <td>${product.brand}</td>--%>
+<%--                                                        <td>${product.size}</td>--%>
+<%--                                                        <td>${product.color}</td> --%>
+                                                            <a href="/admin/product/update/${product.id}"
                                                                 class="btn btn-warning">Update</a>
-                                                            <a href="/admin/product/delete/${user.id}"
+                                                            <a href="/admin/product/delete/${product.id}"
                                                                 class="btn btn-danger">Delete</a>
                                                         </td>
-                                                    </tr>
+                                                    </tr>  -->
                                                 </c:forEach>
                                             </tbody>
                                         </table>

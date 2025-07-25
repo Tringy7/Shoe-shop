@@ -25,7 +25,6 @@ public class ProductService {
 
     @Transactional
     public void createProduct(Product product) {
-        product.setSold(0);
         this.productRepository.save(product);
     }
 
