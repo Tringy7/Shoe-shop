@@ -1,6 +1,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-        <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+        <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
             <!DOCTYPE html>
             <html lang="en">
 
@@ -40,9 +41,9 @@
                 <script>
                     $(document).ready(() => {
                         const avatarFile = $("#avatarFile");
-                        const imgFile = "${product.avatar}";
+                        const imgFile = "${product.image}";
                         if (imgFile) {
-                            const urlImage = "/admin/img/user/" + imgFile;
+                            const urlImage = "/admin/img/product/" + imgFile;
                             $("#avatarPreview").attr("src", urlImage);
                             $("#avatarPreview").css({ "display": "block" });
                         }
@@ -84,9 +85,10 @@
                             <div class="row g-4">
                                 <div class="col-sm-12 col-xl-6 mx-auto">
                                     <div class="bg-secondary rounded h-100 p-4">
-                                        <h6 class="mb-4">Update product</h6>
                                         <form:form action="/admin/product/update/${product.id}" method="POST"
                                             modelAttribute="product" enctype="multipart/form-data">
+                                            <h6 class="mb-4">Update product</h6>
+
                                             <div class="row mb-3">
                                                 <c:set var="nameHasBindError">
                                                     <form:errors path="name" />
@@ -104,47 +106,22 @@
                                                     <form:input path="price" type="number" class="form-control" />
                                                 </div>
                                             </div>
-                                            <div class="row mb-3">
-                                                <label class="col-sm-2 col-form-label">Quantity</label>
-                                                <div class="col-sm-10">
-                                                    <form:input path="quantity" type="number" class="form-control" />
-                                                </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                                <label class="col-sm-2 col-form-label">Sold</label>
-                                                <div class="col-sm-10">
-                                                    <form:input path="sold" type="number" class="form-control" />
-                                                </div>
-                                            </div>
                                             <div class="mb-3">
                                                 <div class="form-floating mb-3">
                                                     <form:select path="brand" class="form-select" id="floatingSelect"
                                                         aria-label="Floating label select example">
-                                                        <option selected="">Brand</option>
                                                         <form:option value="Nike">Nike</form:option>
                                                         <form:option value="Adidas">Adidas</form:option>
                                                         <form:option value="Merrel">Merrel</form:option>
                                                         <form:option value="Gucci">Gucci</form:option>
                                                         <form:option value="Skechers">Skechers</form:option>
                                                     </form:select>
-                                                    <label for="floatingSelect">Works with selects</label>
+                                                    <label for="floatingSelect">Brand</label>
                                                 </div>
-                                                <div class="form-floating mb-3">
-                                                    <form:select path="size" class="form-select" id="floatingSelect"
-                                                        aria-label="Floating label select example">
-                                                        <option selected="">Size</option>
-                                                        <form:option value="S">S</form:option>
-                                                        <form:option value="M">M</form:option>
-                                                        <form:option value="L">L</form:option>
-                                                        <form:option value="XL">XL</form:option>
-                                                        <form:option value="XXL">XXL</form:option>
-                                                    </form:select>
-                                                    <label for="floatingSelect">Works with selects</label>
-                                                </div>
+
                                                 <div class="form-floating mb-3">
                                                     <form:select path="color" class="form-select" id="floatingSelect"
                                                         aria-label="Floating label select example">
-                                                        <option selected="">Colors</option>
                                                         <form:option value="Black">Black</form:option>
                                                         <form:option value="White">White</form:option>
                                                         <form:option value="Red">Red</form:option>
@@ -152,20 +129,48 @@
                                                         <form:option value="Orange">Orange</form:option>
                                                         <form:option value="Grey">Grey</form:option>
                                                     </form:select>
-                                                    <label for="floatingSelect">Works with selects</label>
+                                                    <label for="floatingSelect">Colors</label>
                                                 </div>
                                             </div>
-                                            <div class="mb-3">
-                                                <label for="formFile" class="form-label">Image</label>
-                                                <input class="form-control bg-dark" type="file" id="avatarFile"
-                                                    name="avatarFile">
-                                                <form:input path="image" type="hidden" />
+
+                                            <div class="form-floating">
+                                                <form:textarea path="detailDesc" class="form-control"
+                                                    placeholder="Leave a comment here" id="floatingTextarea"
+                                                    style="height: 150px;"></form:textarea>
+                                                <label for="floatingTextarea">Details</label>
+                                            </div>
+                                            <div class="row mb-3">
+                                            </div>
+
+                                            <div class="form-floating mb-3">
+                                                <div class="mb-3 row">
+                                                    <c:forEach var="i" begin="0"
+                                                        end="${fn:length(product.productDetails)-1}">
+                                                        <label
+                                                            class="col-sm-1 col-form-label">${product.productDetails[i].size}</label>
+                                                        <div class="col-sm-2">
+                                                            <form:input path="productDetails[${i}].quantity"
+                                                                type="number" class="form-control" />
+                                                        </div>
+                                                    </c:forEach>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="mb-3 row">
+                                                <label for="formFile" class="form-label col-2">Image</label>
+                                                <div class="col-10">
+                                                    <input class="form-control bg-dark" type="file" id="avatarFile"
+                                                        name="avatarFile">
+                                                    <form:input path="image" type="hidden" />
+
+                                                </div>
                                             </div>
                                             <div class="mb-3">
                                                 <img src="" alt="" style="max-height: 250px; display: none;"
                                                     id="avatarPreview">
                                             </div>
-                                            <button type="submit" class="btn btn-warning">Update</button>
+                                            <button type="submit" class="btn btn-primary">Create</button>
                                         </form:form>
                                     </div>
                                 </div>

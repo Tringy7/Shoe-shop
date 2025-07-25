@@ -39,7 +39,7 @@ public class ProductService {
             temp.setSize(sizes[cnt]);
             temp.setProduct(product);
             if (temp.getQuantity() <= 0) {
-                it.remove();
+                temp.setQuantity(0L);
             }
             cnt++;
         }
@@ -55,6 +55,20 @@ public class ProductService {
         Optional<Product> productCheck = this.productRepository.findById(product.getId());
         if (productCheck.isPresent()) {
             Product temp = productCheck.get();
+
+            List<ProductDetail> productDetails = temp.getProductDetails();
+            Iterator<ProductDetail> it = productDetails.iterator();
+            int cnt = 0;
+            while (it.hasNext()) {
+                ProductDetail pd = it.next();
+                Long tempQuantity = product.getProductDetails().get(cnt).getQuantity();
+                if (tempQuantity < 0) {
+                    pd.setQuantity(0L);
+                }
+                pd.setQuantity(tempQuantity);
+            }
+            this.productDetailService.saveListProductDetail(productDetails);
+
             temp = modelMapper.map(product, Product.class);
             this.productRepository.save(temp);
         }
@@ -64,4 +78,5 @@ public class ProductService {
     public void deleteProduct(Long id) {
         this.productRepository.deleteById(id);
     }
+
 }
