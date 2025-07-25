@@ -11,7 +11,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,9 +37,6 @@ public class Product {
 
     @Column(columnDefinition = "MEDIUMTEXT")
     private String detailDesc;
-
-    @Column(columnDefinition = "MEDIUMTEXT")
-    private String shortDesc;
 
     private String brand;
     private String color;

@@ -1,5 +1,6 @@
 package com.studio.Design.service;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import com.studio.Design.domain.Product;
+import com.studio.Design.domain.ProductDetail;
 import com.studio.Design.repository.ProductRepository;
 
 import jakarta.transaction.Transactional;
@@ -18,6 +20,7 @@ public class ProductService {
 
     private ProductRepository productRepository;
     private ModelMapper modelMapper;
+    private ProductDetailService productDetailService;
 
     public List<Product> getAllProduct() {
         return this.productRepository.findAll();
@@ -25,7 +28,22 @@ public class ProductService {
 
     @Transactional
     public void createProduct(Product product) {
+        String[] sizes = {"S", "M", "L", "XL"};
         this.productRepository.save(product);
+        List<ProductDetail> productDetails = product.getProductDetails();
+        Iterator<ProductDetail> it = productDetails.iterator();
+        int cnt = 0;
+        while (it.hasNext()) {
+            ProductDetail temp = it.next();
+            temp.setSold(0L);
+            temp.setSize(sizes[cnt]);
+            temp.setProduct(product);
+            if (temp.getQuantity() <= 0) {
+                it.remove();
+            }
+            cnt++;
+        }
+        this.productDetailService.saveListProductDetail(productDetails);
     }
 
     public Product getProduct(Long id) {

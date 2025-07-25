@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.studio.Design.domain.Product;
-import com.studio.Design.domain.dto.ProductDetailDTO;
+import com.studio.Design.domain.ProductDetail;
 import com.studio.Design.service.HandleUploadFile;
 import com.studio.Design.service.ProductService;
 
@@ -35,14 +35,21 @@ public class ProductController {
 
     @GetMapping("/admin/product/create")
     public String showProductCreate(Model model) {
-        model.addAttribute("product", new Product());
+        Product product = new Product();
 
-        List<ProductDetailDTO> detailList = new ArrayList<>();
-        detailList.add(new ProductDetailDTO("S", 0L));
-        detailList.add(new ProductDetailDTO("M", 0L));
-//        detailList.add(new ProductDetailDTO("L", 0L));
-//        detailList.add(new ProductDetailDTO("XL", 0L));
-        model.addAttribute("detailList", detailList);
+        // Tạo danh sách các size mặc định
+        List<ProductDetail> detailList = new ArrayList<>();
+        String[] sizes = {"S", "M", "L", "XL"};
+        for (String size : sizes) {
+            ProductDetail detail = new ProductDetail();
+            detail.setSize(size);
+            detail.setQuantity(0L); // default
+            detailList.add(detail);
+        }
+
+        product.setProductDetails(detailList);
+
+        model.addAttribute("product", product);
         return "admin/product/create";
     }
 
@@ -50,8 +57,7 @@ public class ProductController {
     public String handleProductCreate(
             @ModelAttribute("product") @Valid Product product,
             BindingResult productBindingResult,
-            @RequestParam("avatarFile") MultipartFile file,
-            @ModelAttribute("detailList") List<ProductDetailDTO> detailList
+            @RequestParam("avatarFile") MultipartFile file
     ) {
         if (productBindingResult.hasErrors()) {
             return "admin/product/create";
@@ -60,7 +66,7 @@ public class ProductController {
         if (file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
             product.setImage(handleUploadFile.uploadFile(file, "product"));
         }
-        // this.productService.createProduct(product);
+        this.productService.createProduct(product);
         return "redirect:/admin/product ";
     }
 
