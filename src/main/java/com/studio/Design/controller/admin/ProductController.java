@@ -40,7 +40,7 @@ public class ProductController {
 
         // Tạo danh sách các size mặc định
         List<ProductDetail> detailList = new ArrayList<>();
-        String[] sizes = {"S", "M", "L", "XL"};
+        String[] sizes = {"S", "M", "L"};
         for (String size : sizes) {
             ProductDetail detail = new ProductDetail();
             detail.setSize(size);
@@ -88,14 +88,16 @@ public class ProductController {
         this.productService.updateProduct(product);
         return "redirect:/admin/product";
     }
-//     @GetMapping("/admin/product/delete/{id}")
-//     public String showProductDelete(@PathVariable("id") Long id, Model model) {
-//         model.addAttribute("product", this.productService.getProduct(id));
-//         return "admin/product/delete";
-//     }
-//     @PostMapping("/admin/product/delete/{id}")
-//     public String handleProductDelete(@PathVariable("id") Long id) {
-//         this.productService.deleteProduct(id);
-//         return "redirect:/admin/product";
-//     }
+
+    @GetMapping("/admin/product/delete/{id}")
+    public String showProductDelete(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("product", this.productService.getProduct(id));
+        return "admin/product/delete";
+    }
+
+    @PostMapping("/admin/product/delete/{id}")
+    public String handleProductDelete(@PathVariable("id") Long id) {
+        this.productService.deleteProduct(id);
+        return "redirect:/admin/product";
+    }
 }

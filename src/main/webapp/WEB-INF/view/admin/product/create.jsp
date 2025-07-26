@@ -141,7 +141,7 @@
                                                         end="${fn:length(product.productDetails)-1}">
                                                         <label
                                                             class="col-sm-1 col-form-label">${product.productDetails[i].size}</label>
-                                                        <div class="col-sm-2">
+                                                        <div class="col-sm-3">
                                                             <form:input path="productDetails[${i}].quantity"
                                                                 type="number" class="form-control" />
                                                         </div>

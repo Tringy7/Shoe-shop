@@ -148,7 +148,7 @@
                                                         end="${fn:length(product.productDetails)-1}">
                                                         <label
                                                             class="col-sm-1 col-form-label">${product.productDetails[i].size}</label>
-                                                        <div class="col-sm-2">
+                                                        <div class="col-sm-3">
                                                             <form:input path="productDetails[${i}].quantity"
                                                                 type="number" class="form-control" />
                                                         </div>
@@ -170,7 +170,7 @@
                                                 <img src="" alt="" style="max-height: 250px; display: none;"
                                                     id="avatarPreview">
                                             </div>
-                                            <button type="submit" class="btn btn-primary">Create</button>
+                                            <button type="submit" class="btn btn-warning">Update</button>
                                         </form:form>
                                     </div>
                                 </div>

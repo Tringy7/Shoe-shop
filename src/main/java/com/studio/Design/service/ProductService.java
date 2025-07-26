@@ -64,8 +64,10 @@ public class ProductService {
                 Long tempQuantity = product.getProductDetails().get(cnt).getQuantity();
                 if (tempQuantity < 0) {
                     pd.setQuantity(0L);
+                } else {
+                    pd.setQuantity(tempQuantity);
                 }
-                pd.setQuantity(tempQuantity);
+                cnt++;
             }
             this.productDetailService.saveListProductDetail(productDetails);
 
@@ -76,6 +78,14 @@ public class ProductService {
 
     @Transactional
     public void deleteProduct(Long id) {
+        Optional<Product> productCheck = this.productRepository.findById(id);
+        if (productCheck.isPresent()) {
+            Product product = productCheck.get();
+            List<ProductDetail> pd = product.getProductDetails();
+            for (ProductDetail it : pd) {
+                this.productDetailService.deleteProductDetail(it.getId());
+            }
+        }
         this.productRepository.deleteById(id);
     }
 

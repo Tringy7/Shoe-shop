@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.studio.Design.domain.ProductDetail;
 import com.studio.Design.repository.ProductDetailRepository;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -15,7 +16,13 @@ public class ProductDetailService {
 
     private ProductDetailRepository productDetailRepository;
 
+    @Transactional
     public void saveListProductDetail(List<ProductDetail> temp) {
         this.productDetailRepository.saveAll(temp);
+    }
+
+    @Transactional
+    public void deleteProductDetail(Long id) {
+        this.productDetailRepository.deleteById(id);
     }
 }
