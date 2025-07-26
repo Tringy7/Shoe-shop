@@ -5,11 +5,16 @@ import java.util.List;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.studio.Design.domain.Product;
 import com.studio.Design.domain.ProductDetail;
+import com.studio.Design.domain.dto.ProductCriterialDTO;
 import com.studio.Design.repository.ProductRepository;
+import com.studio.Design.service.spec.ProductSpecs;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -21,8 +26,10 @@ public class ProductService {
     private ProductRepository productRepository;
     private ModelMapper modelMapper;
     private ProductDetailService productDetailService;
+    private ProductSpecs productSpecs;
 
     public List<Product> getAllProduct() {
+
         return this.productRepository.findAll();
     }
 
@@ -87,6 +94,26 @@ public class ProductService {
             }
         }
         this.productRepository.deleteById(id);
+    }
+
+    public Page getPage(Pageable pageable, ProductCriterialDTO productCriterialDTO) {
+        if (productCriterialDTO.getBrand() == null
+                && productCriterialDTO.getColor() == null
+                && productCriterialDTO.getSize() == null) {
+            return this.productRepository.findAll(pageable);
+        }
+
+        Specification<Product> combineSpec = (root, query, criteriaBuilder) -> criteriaBuilder.conjunction();;
+        if (productCriterialDTO.getBrand() != null && productCriterialDTO.getBrand().isPresent()) {
+            combineSpec = combineSpec.and(ProductSpecs.productCheckBrand(productCriterialDTO.getBrand().get()));
+        }
+        if (productCriterialDTO.getColor() != null && productCriterialDTO.getColor().isPresent()) {
+            combineSpec = combineSpec.and(ProductSpecs.productCheckColor(productCriterialDTO.getColor().get()));
+        }
+        if (productCriterialDTO.getSize() != null && productCriterialDTO.getSize().isPresent()) {
+            combineSpec = combineSpec.and(ProductSpecs.productCheckSize(productCriterialDTO.getSize().get()));
+        }
+        return this.productRepository.findAll(combineSpec, pageable);
     }
 
 }

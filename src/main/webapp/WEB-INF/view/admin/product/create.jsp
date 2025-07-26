@@ -107,7 +107,7 @@
                                                         <form:option value="Adidas">Adidas</form:option>
                                                         <form:option value="Merrel">Merrel</form:option>
                                                         <form:option value="Gucci">Gucci</form:option>
-                                                        <form:option value="Skechers">Skechers</form:option>
+                                                        <form:option value="PUMA">Puma</form:option>
                                                     </form:select>
                                                     <label for="floatingSelect">Brand</label>
                                                 </div>
