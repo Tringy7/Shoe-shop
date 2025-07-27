@@ -46,7 +46,7 @@ public class ProductService {
             temp.setSize(sizes[cnt]);
             temp.setProduct(product);
             if (temp.getQuantity() <= 0) {
-                temp.setQuantity(0L);
+                it.remove();
             }
             cnt++;
         }
@@ -69,8 +69,9 @@ public class ProductService {
             while (it.hasNext()) {
                 ProductDetail pd = it.next();
                 Long tempQuantity = product.getProductDetails().get(cnt).getQuantity();
-                if (tempQuantity < 0) {
-                    pd.setQuantity(0L);
+                if (tempQuantity <= 0) {
+                    it.remove();
+                    this.productDetailService.deleteProductDetail(pd.getId());
                 } else {
                     pd.setQuantity(tempQuantity);
                 }

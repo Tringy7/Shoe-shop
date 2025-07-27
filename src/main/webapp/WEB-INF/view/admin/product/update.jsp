@@ -143,16 +143,27 @@
                                             </div>
 
                                             <div class="form-floating mb-3">
-                                                <div class="mb-3 row">
-                                                    <c:forEach var="i" begin="0"
-                                                        end="${fn:length(product.productDetails)-1}">
-                                                        <label
-                                                            class="col-sm-1 col-form-label">${product.productDetails[i].size}</label>
-                                                        <div class="col-sm-3">
-                                                            <form:input path="productDetails[${i}].quantity"
-                                                                type="number" class="form-control" />
-                                                        </div>
-                                                    </c:forEach>
+                                                <div class="row align-items-center">
+                                                    <!-- Size S -->
+                                                    <div class="col-sm-4 d-flex align-items-center">
+                                                        <label class="col-form-label me-2">S</label>
+                                                        <form:input path="productDetails[0].quantity" type="number"
+                                                            class="form-control" />
+                                                    </div>
+
+                                                    <!-- Size M -->
+                                                    <div class="col-sm-4 d-flex align-items-center">
+                                                        <label class="col-form-label me-2">M</label>
+                                                        <form:input path="productDetails[1].quantity" type="number"
+                                                            class="form-control" />
+                                                    </div>
+
+                                                    <!-- Size L -->
+                                                    <div class="col-sm-4 d-flex align-items-center">
+                                                        <label class="col-form-label me-2">L</label>
+                                                        <form:input path="productDetails[2].quantity" type="number"
+                                                            class="form-control" />
+                                                    </div>
                                                 </div>
                                             </div>
 

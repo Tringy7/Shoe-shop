@@ -29,12 +29,8 @@ public class ProductSpecs {
             // Join với productDetails
             var join = root.join(Product_.PRODUCT_DETAILS);
 
-            // Điều kiện size nằm trong danh sách và quantity > 0
-            return criteriaBuilder.and(
-                    join.get("size").in(sizes),
-                    criteriaBuilder.greaterThan(join.get("quantity"), 0)
-            );
+            // Chỉ lọc theo size
+            return join.get("size").in(sizes);
         };
     }
-
 }
