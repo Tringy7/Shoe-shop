@@ -42,6 +42,84 @@
 
 	};
 
+	$(document).ready(function () {
+        console.log(1);
+        const urlParams = new URLSearchParams(window.location.search);
+
+        const brands = urlParams.get('brand');
+        if (brands) {
+            brands.split(',').forEach(val => {
+                $(`#CheckBrand input[value="${val}"]`).prop('checked', true);
+            });
+        }
+
+        const sizes = urlParams.get('size');
+        if (sizes) {
+            sizes.split(',').forEach(val => {
+                $(`#CheckSize input[value="${val}"]`).prop('checked', true);
+            });
+        }
+
+        const colors = urlParams.get('color');
+        if (colors) {
+            colors.split(',').forEach(val => {
+                $(`#CheckColor input[value="${val}"]`).prop('checked', true);
+            });
+        }
+
+        // Check radio button theo 'sort'
+        const sortValue = urlParams.get('sort');
+        if (sortValue) {
+            $(`#CheckSort input[name="radio-sort"][value="${sortValue}"]`).prop('checked', true);
+        }
+    });
+
+    $("#filter-btn").click(function(e){
+        e.preventDefault();
+        var brand = [];
+        var size = [];
+        var color = [];
+        
+        $('#CheckBrand .form-check-input:checked').each(function() {
+            brand.push($(this).val());
+        })
+
+        $('#CheckSize .form-check-input:checked').each(function() {
+            size.push($(this).val());
+        })
+
+        $('#CheckColor .form-check-input:checked').each(function() {
+            color.push($(this).val());
+        })
+
+        let sortValue = $("input[name=radio-sort]:checked").val();
+
+        const currentUrl = new URL(window.location.href);
+        const searchParam = currentUrl.searchParams;
+
+        searchParam.set('page', '0');
+        searchParam.set('sort', sortValue);
+
+        searchParam.delete('brand');
+        searchParam.delete('size');
+        searchParam.delete('color');
+
+
+        if (brand.length > 0) {
+            searchParam.set('brand', brand.join(','));
+        }
+
+        if (size.length > 0) {
+            searchParam.set('size', size.join(','));
+        }
+      
+        if (color.length > 0) {
+            searchParam.set('color', color.join(','));
+        }
+
+        window.location.href = currentUrl;
+    })
+
 
 	var offcanvasMenu = function() {
 

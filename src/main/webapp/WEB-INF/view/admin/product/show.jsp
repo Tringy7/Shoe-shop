@@ -224,7 +224,7 @@
                                                                 <!-- Sort -->
                                                                 <div class="form-check">
                                                                     <input class="form-check-input" type="radio"
-                                                                        name="radio-sort" value="tang-dan" id="sortNone"
+                                                                        name="radio-sort" value="ko-tang" id="sortNone"
                                                                         checked>
                                                                     <label class="form-check-label"
                                                                         for="sortNone">None</label>

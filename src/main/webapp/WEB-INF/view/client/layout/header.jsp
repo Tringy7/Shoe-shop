@@ -19,7 +19,7 @@
             <div class="row">
                 <div class="col-sm-12 text-left menu-1">
                     <ul>
-                        <li class="active"><a href="/homepage">Home</a></li>
+                        <li><a href="/homepage">Home</a></li>
                         <!-- <li class="has-dropdown">
                             <a href="men.html">Men</a>
                             <ul class="dropdown">
@@ -63,3 +63,16 @@
         </div>
     </div>
 </nav>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const currentPath = window.location.pathname;
+        const menuLinks = document.querySelectorAll('.menu-1 ul li a');
+
+        menuLinks.forEach(link => {
+            if (link.getAttribute('href') === currentPath) {
+                link.parentElement.classList.add('active');
+            }
+        });
+    });
+</script>

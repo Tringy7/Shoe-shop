@@ -55,6 +55,9 @@ public class ProductController {
                 pageable = PageRequest.of(page, 4, Sort.by(Product_.PRICE).ascending());
             } else if (temp.equals("giam-dan")) {
                 pageable = PageRequest.of(page, 4, Sort.by(Product_.PRICE).descending());
+
+            } else {
+                pageable = PageRequest.of(page, 4);
             }
         }
         Page<Product> ps = this.productService.getPage(pageable, productCriterialDTO);

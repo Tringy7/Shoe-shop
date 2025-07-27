@@ -54,6 +54,13 @@ html {
 article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
   display: block; }
 
+/* Áp dụng cho cả checkbox và radio */
+.form-check-input:checked {
+    background-color: #6c757d !important;   /* Màu nền khi tick */
+    border-color: #6c757d !important;       /* Màu viền khi tick */
+}
+
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -80,6 +87,14 @@ h1, h2, h3, h4, h5, h6 {
 p {
   margin-top: 0;
   margin-bottom: 1rem; }
+
+  a.disabled {
+    pointer-events: none;
+    color: #ccc; /* hoặc tùy style bạn muốn */
+    cursor: not-allowed;
+    text-decoration: none;
+}
+
 
 abbr[title],
 abbr[data-original-title] {
@@ -1713,6 +1728,7 @@ select.form-control-lg:not([size]):not([multiple]), .input-group-lg > select.for
   position: absolute;
   margin-top: 0.3rem;
   margin-left: -1.25rem; }
+
   .form-check-input:disabled ~ .form-check-label {
     color: #6c757d; }
 
@@ -7441,7 +7457,7 @@ h1, h2, h3, h4, h5,
       -ms-transition: all 0.5s ease;
       transition: all 0.5s ease; }
       .colorlib-nav ul li a:hover {
-        color: #000; }
+        color: #ccc; }
     .colorlib-nav ul li.has-dropdown {
       position: relative; }
       .colorlib-nav ul li.has-dropdown .dropdown {
@@ -7673,9 +7689,12 @@ h1, h2, h3, h4, h5,
 #colorlib-contact,
 .colorlib-about,
 .colorlib-partner,
-.colorlib-intro,
-.colorlib-product {
+.colorlib-intro {
   padding: 7em 0;
+  clear: both; }
+
+.colorlib-product {
+  padding: 2em 0;
   clear: both; }
 
 .colorlib-intro {
@@ -8824,7 +8843,7 @@ input[type="text"] {
   padding-bottom: 6em !important; }
 
 .row-pb-md {
-  padding-bottom: 4em !important; }
+  padding-bottom: 1em !important; }
 
 .row-pb-sm {
   padding-bottom: 2em !important; }

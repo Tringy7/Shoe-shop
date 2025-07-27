@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -117,4 +118,7 @@ public class ProductService {
         return this.productRepository.findAll(combineSpec, pageable);
     }
 
+    public List<Product> showProductHP() {
+        return this.productRepository.findAll(PageRequest.of(0, 8)).getContent();
+    }
 }
