@@ -70,8 +70,7 @@
                                     <div class="col-sm-8">
                                         <div class="product-entry border">
                                             <a href="#" class="prod-img">
-                                                <img src="/admin/img/product/${product.image}" class="img-fluid"
-                                                    alt="Free html5 bootstrap 4 template">
+                                                <img src="/admin/img/product/${product.image}" class="img-fluid">
                                             </a>
                                         </div>
                                     </div>

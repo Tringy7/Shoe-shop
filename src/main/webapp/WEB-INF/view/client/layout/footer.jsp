@@ -56,7 +56,7 @@
                     <li>2/6 Linh Chieu street <br> Thu Duc, HCM, VietNam</li>
                     <li><a href="tel://0346500557">+84 346500557</a></li>
                     <li><a href="mailto:huutria22005@gmail.com">huutria22005@gmail.com</a></li>
-                    <li><a href="#">gmail.com</a></li>
+                    <li><a href="/homepage">Shoeshop.com</a></li>
                 </ul>
             </div>
         </div>
