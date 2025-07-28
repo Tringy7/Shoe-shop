@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.studio.Design.domain.Role;
 import com.studio.Design.domain.User;
+import com.studio.Design.domain.dto.UserDTO;
 import com.studio.Design.repository.UserRepository;
 
 import jakarta.transaction.Transactional;
@@ -67,5 +68,19 @@ public class UserService {
 
     public User getUserByEmail(String email) {
         return this.userRepository.findByEmail(email);
+    }
+
+    public boolean checkEmail(UserDTO user) {
+        return this.userRepository.existsByEmail(user.getEmail());
+    }
+
+    @Transactional
+    public void createNewUser(UserDTO userDTO) {
+        User user = User.builder()
+                .email(userDTO.getEmail())
+                .password(this.passwordEncoder.encode(userDTO.getPassword()))
+                .fullName(userDTO.getName())
+                .build();
+        this.userRepository.save(user);
     }
 }

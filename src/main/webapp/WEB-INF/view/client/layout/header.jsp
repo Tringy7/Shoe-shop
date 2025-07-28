@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <nav class="colorlib-nav" role="navigation">
     <div class="top-menu">
         <div class="container">
@@ -8,7 +9,18 @@
                     </div>
                     <div class="search-wrap">
                         <div class="form-group mb-0">
-                            <a href="#" class="btn btn-primary">Login</a>
+                            <c:if test="${not empty pageContext.request.userPrincipal}">
+                                <form action="/logout" method="POST">
+                                    <input type="hidden" name="${_csrf.parameterName}"
+                                           value="${_csrf.token}" />
+                                    <button type="submit" class="btn btn-primary">Logout</button>
+                                </form>
+
+                            </c:if>
+
+                            <c:if test="${empty pageContext.request.userPrincipal}">
+                                <a href="/login" class="btn btn-primary">Login</a>
+                            </c:if>
                         </div>
                     </div>
                 </div>
@@ -20,20 +32,10 @@
                 <div class="col-sm-12 text-left menu-1">
                     <ul>
                         <li><a href="/">Home</a></li>
-                        <!-- <li class="has-dropdown">
-                            <a href="men.html">Men</a>
-                            <ul class="dropdown">
-                                <li><a href="product-detail.html">Product Detail</a></li>
-                                <li><a href="cart.html">Shopping Cart</a></li>
-                                <li><a href="checkout.html">Checkout</a></li>
-                                <li><a href="order-complete.html">Order Complete</a></li>
-                                <li><a href="add-to-wishlist.html">Wishlist</a></li>
-                            </ul>
-                        </li> -->
                         <li><a href="/product">Products</a></li>
                         <li><a href="/about">About</a></li>
                         <li><a href="/contact">Contact</a></li>
-                        <li class="cart"><a href="cart.html"><i class="icon-shopping-cart"></i> Cart [0]</a>
+                        <li class="cart"><a href="/cart"><i class="icon-shopping-cart"></i> Cart [0]</a>
                         </li>
                     </ul>
                 </div>

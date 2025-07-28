@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -100,6 +101,14 @@
                 <h5>Login</h5>
               </div>
               <div class="flex-auto p-6">
+                <c:if test="${param.error != null}">
+                  <div class="my-2" style="color: red;">Invalid email or password.
+                  </div>
+                </c:if>
+                <c:if test="${param.logout != null}">
+                  <div class="my-2" style="color: green;">Logout success!
+                  </div>
+                </c:if>
                 <form role="form text-left" action="/login" method="POST">
                   <div class="mb-4">
                     <input type="email"

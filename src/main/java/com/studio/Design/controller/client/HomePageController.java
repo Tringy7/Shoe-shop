@@ -34,16 +34,6 @@ public class HomePageController {
         return "client/contact/show";
     }
 
-    @GetMapping("/login")
-    public String showLogin() {
-        return "client/auth/login";
-    }
-
-    @GetMapping("/register")
-    public String showRegister() {
-        return "client/auth/register";
-    }
-
     @GetMapping("/access-deny")
     public String showDeny() {
         return "client/auth/deny";

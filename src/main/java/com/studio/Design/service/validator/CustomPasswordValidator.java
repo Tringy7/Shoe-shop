@@ -11,7 +11,6 @@ public class CustomPasswordValidator implements ConstraintValidator<PasswordVali
 
         if (!valid) {
             context.buildConstraintViolationWithTemplate("Weak password")
-                    .addPropertyNode("password")
                     .addConstraintViolation()
                     .disableDefaultConstraintViolation();
         }
