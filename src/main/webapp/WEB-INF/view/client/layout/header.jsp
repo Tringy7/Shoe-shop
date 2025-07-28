@@ -4,7 +4,7 @@
             <div class="row align-items-center">
                 <div class="col-12 d-flex justify-content-between align-items-center">
                     <div id="colorlib-logo">
-                        <a href="/homepage">Shoeshop</a>
+                        <a href="/">Shoeshop</a>
                     </div>
                     <div class="search-wrap">
                         <div class="form-group mb-0">
@@ -19,7 +19,7 @@
             <div class="row">
                 <div class="col-sm-12 text-left menu-1">
                     <ul>
-                        <li><a href="/homepage">Home</a></li>
+                        <li><a href="/">Home</a></li>
                         <!-- <li class="has-dropdown">
                             <a href="men.html">Men</a>
                             <ul class="dropdown">

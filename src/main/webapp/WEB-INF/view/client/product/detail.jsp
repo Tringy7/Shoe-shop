@@ -53,7 +53,7 @@
                             <div class="row">
                                 <div class="col">
                                     <p class="bread">
-                                        <span><a href="/homepage">Home</a></span> /
+                                        <span><a href="/">Home</a></span> /
                                         <span><a href="/product">Products</a></span> /
                                         <span>Product Details</span>
                                     </p>

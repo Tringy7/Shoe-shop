@@ -86,7 +86,7 @@
                                         href="mailto:huutria2005@gmail.com">huutria2005@gmail.com</a></p>
                             </div>
                             <div class="col-md-3">
-                                <p><span><i class="icon-globe"></i></span> <a href="/homepage">Shoeshop.com</a></p>
+                                <p><span><i class="icon-globe"></i></span> <a href="/">Shoeshop.com</a></p>
                             </div>
                         </div>
                     </div>

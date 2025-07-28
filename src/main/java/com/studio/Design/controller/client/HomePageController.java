@@ -17,7 +17,7 @@ public class HomePageController {
 
     private ProductService productService;
 
-    @GetMapping("/homepage")
+    @GetMapping("/")
     public String showHomePage(Model model) {
         List<Product> products = this.productService.showProductHP();
         model.addAttribute("productList", products);
@@ -33,4 +33,20 @@ public class HomePageController {
     public String showContact() {
         return "client/contact/show";
     }
+
+    @GetMapping("/login")
+    public String showLogin() {
+        return "client/auth/login";
+    }
+
+    @GetMapping("/register")
+    public String showRegister() {
+        return "client/auth/register";
+    }
+
+    @GetMapping("/access-deny")
+    public String showDeny() {
+        return "client/auth/deny";
+    }
+
 }

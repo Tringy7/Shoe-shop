@@ -49,7 +49,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col">
-                        <p class="bread"><span><a href="/homepage">Home</a></span> / <span>About</span></p>
+                        <p class="bread"><span><a href="/">Home</a></span> / <span>About</span></p>
                     </div>
                 </div>
             </div>

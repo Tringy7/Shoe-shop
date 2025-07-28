@@ -40,7 +40,7 @@ public class UserService {
             user.setPassword(this.passwordEncoder.encode(user.getPassword()));
             user.setRole(role);
             this.userRepository.save(user);
-        } 
+        }
     }
 
     public User getUser(Long id) {
@@ -63,5 +63,9 @@ public class UserService {
         if (user.isPresent()) {
             this.userRepository.deleteById(id);
         }
+    }
+
+    public User getUserByEmail(String email) {
+        return this.userRepository.findByEmail(email);
     }
 }

@@ -51,7 +51,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col">
-                                <p class="bread"><span><a href="/homepage">Home</a></span> / <span>Products</span></p>
+                                <p class="bread"><span><a href="/">Home</a></span> / <span>Products</span></p>
                             </div>
                         </div>
                     </div>
