@@ -190,16 +190,27 @@
                                                         <div class="col-sm-4 text-center">
                                                             <div class="total">
                                                                 <div class="sub">
-                                                                    <p><span>Subtotal:</span> <span>$200.00</span></p>
-                                                                    <p><span>Delivery:</span> <span>$0.00</span></p>
-                                                                    <p><span>Discount:</span> <span>$45.00</span></p>
+                                                                    <p><span>Subtotal:</span> <span>
+                                                                            <fmt:formatNumber type="number"
+                                                                                value="${totalPrice}" />
+                                                                            vnd
+                                                                        </span>
+                                                                    </p>
+                                                                    <p><span>Delivery:</span> <span>0.00 vnd</span></p>
+                                                                    <p><span>Discount:</span> <span>0.00 vnd</span></p>
                                                                 </div>
                                                                 <div class="grand-total">
                                                                     <p><span><strong>Total:</strong></span>
-                                                                        <span>$450.00</span>
+                                                                        <span>
+                                                                            <fmt:formatNumber type="number"
+                                                                                value="${totalPrice}" />
+                                                                            vnd
+                                                                        </span>
                                                                     </p>
                                                                 </div>
+
                                                             </div>
+                                                            <a href="/checkout" class="btn btn-primary mt-3">Checkout</a>
                                                         </div>
                                                     </div>
                                                 </div>

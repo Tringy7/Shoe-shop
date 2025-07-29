@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.studio.Design.service.CartDetailService;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @AllArgsConstructor
@@ -55,6 +56,16 @@ public class CartController {
         HttpSession session = request.getSession(false);
         this.cartDetailService.handleDeleteCartDetail(id, session);
         return "redirect:/cart";
+    }
+
+    @GetMapping("/checkout")
+    public String showCheckOut(Model model) {
+        return "client/cart/checkout";
+    }
+
+    @GetMapping("/complete")
+    public String showComplete(Model model) {
+        return "client/cart/complete";
     }
 
 }
