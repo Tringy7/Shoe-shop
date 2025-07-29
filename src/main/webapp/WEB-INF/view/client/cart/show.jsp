@@ -115,14 +115,18 @@
                                         <c:forEach items="${cartDetail}" var="cartDetailList" varStatus="status">
                                             <div class="product-cart d-flex">
                                                 <div class="one-forth">
-                                                    <div class="product-img"
-                                                        style="background-image: url(/admin/img/product/${cartDetailList.product.image});">
-                                                    </div>
-                                                    <!-- <img src="/admin/img/product/${product.image}"
-                                                        class="img-fluid me-5 rounded-circle"
-                                                        style="width: 80px; height: 80px;" alt=""> -->
+                                                    <a href="/product/${cartDetailList.product.id}">
+                                                        <div class="product-img"
+                                                            style="background-image: url(/admin/img/product/${cartDetailList.product.image});">
+                                                        </div>
+                                                        <div class="display-tc">
+                                                            <h3>${cartDetailList.product.name}</h3>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                <div class="one-eight text-center">
                                                     <div class="display-tc">
-                                                        <h3>${cartDetailList.product.image}</h3>
+                                                        <span>${cartDetailList.sizeProduct}</span>
                                                     </div>
                                                 </div>
                                                 <div class="one-eight text-center">
@@ -135,11 +139,25 @@
                                                 </div>
                                                 <div class="one-eight text-center">
                                                     <div class="display-tc">
-                                                        <input type="text" name="quantity"
-                                                            class="form-control input-number text-center"
-                                                            value="${cartDetailList.quantity}" min="1" max="100">
+                                                        <div class="d-flex justify-content-center align-items-center">
+                                                            <button type="button"
+                                                                class="quantity-left-minus btn btn-sm px-2 py-1"
+                                                                data-type="minus" data-field="">
+                                                                <i class="icon-minus2"></i>
+                                                            </button>
+                                                            <input type="text" name="quantity"
+                                                                class="form-control input-number text-center mx-2"
+                                                                value="${cartDetailList.quantity}" style="width: 60px;">
+                                                            <button type="button"
+                                                                class="quantity-right-plus btn btn-sm px-2 py-1"
+                                                                data-type="plus" data-field="">
+                                                                <i class="icon-plus2"></i>
+                                                            </button>
+                                                        </div>
                                                     </div>
                                                 </div>
+
+
                                                 <div class="one-eight text-center">
                                                     <div class="display-tc">
                                                         <span class="price">
@@ -149,11 +167,18 @@
                                                         </span>
                                                     </div>
                                                 </div>
-                                                <div class="one-eight text-center">
-                                                    <div class="display-tc">
-                                                        <a href="#" class="closed"></a>
+                                                <form action="/cart/delete/${cartDetailList.id}" method="POST">
+                                                    <input type="hidden" name="${_csrf.parameterName}"
+                                                        value="${_csrf.token}" />
+
+                                                    <div class="one-eight text-center">
+
+                                                        <div class="display-tc">
+                                                            <button type="submit" style="border: none; cursor: pointer;"
+                                                                class="closed" aria-label="Remove item"></button>
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                </form>
                                             </div>
                                         </c:forEach>
                                         <div class="row row-pb-lg">

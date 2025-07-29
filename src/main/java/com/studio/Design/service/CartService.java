@@ -1,15 +1,12 @@
 package com.studio.Design.service;
 
-import java.util.List;
-import java.util.Optional;
-
-import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import com.studio.Design.domain.Cart;
 import com.studio.Design.domain.User;
 import com.studio.Design.repository.CartRepository;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -17,18 +14,19 @@ import lombok.AllArgsConstructor;
 public class CartService {
 
     private CartRepository cartRepository;
-
-    public Cart getCartByUser(User user) {
-        Optional<Cart> cartCheck = this.cartRepository.findByUser(user);
-        if (cartCheck.isPresent()) {
-            Cart cart = cartCheck.get();
-            return cart;
-        }
-        return new Cart();
-    }
+    private UserService userService;
 
     @Transactional
     public Cart saveCart(Cart cart) {
         return this.cartRepository.save(cart);
+    }
+
+    public Cart getCartByUser(User user) {
+        return this.cartRepository.findByUser(user);
+    }
+
+    @Transactional
+    public void deleteCart(Cart cart) {
+        this.cartRepository.delete(cart);
     }
 }

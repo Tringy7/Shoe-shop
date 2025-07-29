@@ -24,6 +24,7 @@ public class CartDetail {
 
     private double price;
     private Long quantity;
+    private String sizeProduct;
 
     @ManyToOne()
     @JoinColumn(name = "cartId")

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.studio.Design.domain.Product;
 import com.studio.Design.domain.ProductDetail;
 import com.studio.Design.repository.ProductDetailRepository;
 
@@ -26,7 +27,7 @@ public class ProductDetailService {
         this.productDetailRepository.deleteById(id);
     }
 
-    public ProductDetail getProductDetailBySize(Long  productId, String size) {
-        return this.productDetailRepository.fingByfindByProductIdAndSize(productId, size);
+    public ProductDetail getProductDetailBySize(Product product, String size) {
+        return this.productDetailRepository.findByProductAndSize(product, size);
     }
 }

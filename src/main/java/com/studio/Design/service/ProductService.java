@@ -11,12 +11,16 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import com.studio.Design.domain.Cart;
+import com.studio.Design.domain.CartDetail;
 import com.studio.Design.domain.Product;
 import com.studio.Design.domain.ProductDetail;
+import com.studio.Design.domain.User;
 import com.studio.Design.domain.dto.ProductCriterialDTO;
 import com.studio.Design.repository.ProductRepository;
 import com.studio.Design.service.spec.ProductSpecs;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
@@ -28,6 +32,9 @@ public class ProductService {
     private ModelMapper modelMapper;
     private ProductDetailService productDetailService;
     private ProductSpecs productSpecs;
+    private CartDetailService cartDetailService;
+    private CartService cartService;
+    private UserService userService;
 
     public List<Product> getAllProduct() {
 
@@ -120,5 +127,44 @@ public class ProductService {
 
     public List<Product> showProductHP() {
         return this.productRepository.findAll(PageRequest.of(0, 8)).getContent();
+    }
+
+    @Transactional
+    public void handleAddProductTocart(Long userId, Long productId, String size, Long quantity, HttpSession session) {
+        User user = this.userService.getUser(userId);
+        if (user != null) {
+            Cart cart = this.cartService.getCartByUser(user);
+
+            // Create new cart
+            if (cart == null) {
+                Cart newCart = new Cart();
+                newCart.setSum(0L);
+                newCart.setUser(user);
+                cart = this.cartService.saveCart(newCart);
+            }
+
+            // Save cart detail
+            Optional<Product> productCheck = this.productRepository.findById(productId);
+            if (productCheck.isPresent()) {
+                Product product = productCheck.get();
+                CartDetail cartDetailCheck = this.cartDetailService.findByCartandProduct(cart, product, size);// Cart Detail of user not exist product
+                if (cartDetailCheck == null) {
+                    CartDetail cartDetail = new CartDetail();
+                    cartDetail.setCart(cart);
+                    cartDetail.setPrice(product.getPrice());
+                    cartDetail.setProduct(product);
+                    cartDetail.setQuantity(quantity);
+                    cartDetail.setSizeProduct(size);
+
+                    Long sumTemp = cart.getSum() + 1;
+                    cart.setSum(sumTemp);
+                    this.cartDetailService.saveCartDetail(cartDetail);
+                    session.setAttribute("sum", sumTemp);
+                } else {
+                    cartDetailCheck.setQuantity(cartDetailCheck.getQuantity() + quantity);
+                    this.cartDetailService.saveCartDetail(cartDetailCheck);
+                }
+            }
+        }
     }
 }

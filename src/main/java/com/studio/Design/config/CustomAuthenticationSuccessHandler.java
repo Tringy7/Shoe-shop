@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.studio.Design.service.CartService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,6 @@ import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
-import com.studio.Design.domain.Cart;
 import com.studio.Design.domain.User;
 import com.studio.Design.service.UserService;
 
@@ -29,7 +27,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 
     @Autowired
     private UserService userService;
-    private CartService cartService;
+
     protected Log logger = LogFactory.getLog(this.getClass());
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
@@ -68,7 +66,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
             return;
         }
         String email = authentication.getName();
-        User user = userService.getUserByEmail(email);
+        User user = this.userService.getUserByEmail(email);
         session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
         if (user != null) {
             // session.setAttribute("avatar", user.getAvatar());
@@ -78,12 +76,6 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
             Long sum = 0L;
             if (user.getCart() != null) {
                 sum = user.getCart().getSum();
-                session.setAttribute("cart", user.getCart());
-            } else {
-                Cart cart = new Cart();
-                cart.setUser(user);
-                cart = this.cartService.saveCart(cart);
-                session.setAttribute("cart", cart);
             }
             session.setAttribute("sum", sum);
         }

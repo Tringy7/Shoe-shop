@@ -3,11 +3,6 @@ package com.studio.Design.controller.client;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.studio.Design.domain.*;
-import com.studio.Design.service.CartDetailService;
-import com.studio.Design.service.CartService;
-import com.studio.Design.service.ProductDetailService;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -16,17 +11,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
-import com.studio.Design.domain.dto.ProductCriterialDTO;
-import com.studio.Design.service.ProductService;
-import com.studio.Design.domain.Product_;
-
-import jakarta.servlet.http.HttpServletRequest;
-import lombok.AllArgsConstructor;
-
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.studio.Design.domain.Cart;
+import com.studio.Design.domain.CartDetail;
+import com.studio.Design.domain.Product;
+import com.studio.Design.domain.ProductDetail;
+import com.studio.Design.domain.Product_;
+import com.studio.Design.domain.dto.ProductCriterialDTO;
+import com.studio.Design.service.CartDetailService;
+import com.studio.Design.service.CartService;
+import com.studio.Design.service.ProductDetailService;
+import com.studio.Design.service.ProductService;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import lombok.AllArgsConstructor;
 
 @Controller
 @AllArgsConstructor
@@ -35,6 +36,7 @@ public class ItemController {
     private ProductService productService;
     private ProductDetailService productDetailService;
     private CartDetailService cartDetailService;
+    private CartService cartService;
 
     @GetMapping("/product")
     public String showProduct(
@@ -92,22 +94,8 @@ public class ItemController {
             HttpServletRequest request
     ) {
         HttpSession session = request.getSession(false);
-        Cart cart = (Cart) session.getAttribute("cart");
-        Product product = this.productService.getProduct(id);
-        ProductDetail productDetail = this.productDetailService.getProductDetailBySize(product.getId(), size);
-
-        if (productDetail.getQuantity() < quantity) {
-            // loi
-            return "client/product/detail";
-        }
-
-        CartDetail cartDetail = new CartDetail();
-        cartDetail.setProduct(product);
-        cartDetail.setCart(cart);
-        cartDetail.setQuantity(quantity);
-        cartDetail.setPrice(product.getPrice());
-
-//        this.cartDetailService.saveCartDetail(cartDetail);
+        Long userID = (Long) session.getAttribute("id");
+        this.productService.handleAddProductTocart(userID, id, size, quantity, session);
         return "redirect:/cart";
     }
 

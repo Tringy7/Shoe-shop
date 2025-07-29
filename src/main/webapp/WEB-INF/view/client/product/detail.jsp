@@ -102,12 +102,14 @@
                                                         <c:forEach items="${product.productDetails}" var="detail">
                                                             <li>
                                                                 <a href="#" class="size-option"
-                                                                    data-size="${detail.size}">${detail.size}</a>
+                                                                    data-size="${detail.size}"
+                                                                    data-quantity="${detail.quantity}">${detail.size}</a>
                                                             </li>
                                                         </c:forEach>
                                                     </ul>
                                                 </div>
                                             </div>
+                                            <input type="hidden" id="maxQuantity" value="0">
                                             <input type="hidden" id="selectedSize" name="size" value="">
                                             <div class="input-group mb-4">
                                                 <span class="input-group-btn">
@@ -168,6 +170,48 @@
                     <jsp:include page="../layout/footer.jsp" />
                 </div>
 
+                <!-- Stock Limit Modal -->
+                <div class="modal fade" id="stockLimitModal" tabindex="-1" role="dialog"
+                    aria-labelledby="stockLimitLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content border-danger">
+                            <div class="modal-header bg-danger text-white">
+                                <h5 class="modal-title" id="stockLimitLabel">Insufficient Stock</h5>
+                                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body text-center">
+                                The quantity you selected exceeds the available stock for this size.
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Size Required Modal -->
+                <div class="modal fade" id="sizeRequiredModal" tabindex="-1" role="dialog"
+                    aria-labelledby="sizeRequiredLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content border-warning">
+                            <div class="modal-header bg-warning text-dark">
+                                <h5 class="modal-title" id="sizeRequiredLabel">Size Not Selected</h5>
+                                <button type="button" class="close text-dark" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body text-center">
+                                Please select a size before adding the product to your cart.
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="gototop js-top">
                     <a href="#" class="js-gotop"><i class="ion-ios-arrow-up"></i></a>
                 </div>
@@ -198,43 +242,80 @@
 
                 <script>
                     $(document).ready(function () {
-                        // Xử lý nút tăng số lượng
-                        $('.quantity-right-plus').click(function (e) {
-                            e.preventDefault();
-                            var quantity = parseInt($('#quantity').val());
-                            $('#quantity').val(quantity + 1);
+                        // Ngăn submit nếu chưa chọn size
+                        $('form').on('submit', function (e) {
+                            const selectedSize = $('#selectedSize').val();
+                            if (!selectedSize) {
+                                e.preventDefault(); // Ngăn gửi form
+                                $('#sizeRequiredModal').modal('show'); // Hiện cảnh báo
+                            }
                         });
 
-                        // Xử lý nút giảm số lượng
+                        // Xử lý tăng số lượng
+                        $('.quantity-right-plus').click(function (e) {
+                            e.preventDefault();
+                            var currentQty = parseInt($('#quantity').val());
+                            var maxQty = parseInt($('#maxQuantity').val());
+
+                            if (currentQty < maxQty) {
+                                $('#quantity').val(currentQty + 1);
+                            } else {
+                                showStockLimitModal();
+                            }
+                        });
+
+                        // Xử lý giảm số lượng
                         $('.quantity-left-minus').click(function (e) {
                             e.preventDefault();
-                            var quantity = parseInt($('#quantity').val());
-                            if (quantity > 1) {
-                                $('#quantity').val(quantity - 1);
+                            var currentQty = parseInt($('#quantity').val());
+                            if (currentQty > 1) {
+                                $('#quantity').val(currentQty - 1);
                             }
                         });
 
                         // Xử lý chọn size
                         const sizeOptions = document.querySelectorAll(".size-option");
                         const hiddenSizeInput = document.getElementById("selectedSize");
+                        const quantityInput = document.getElementById("quantity");
+                        const maxQuantityInput = document.getElementById("maxQuantity");
 
                         sizeOptions.forEach(option => {
                             option.addEventListener("click", function (e) {
                                 e.preventDefault();
 
-                                // Gán giá trị size vào input hidden
                                 const selectedSize = this.getAttribute("data-size");
-                                hiddenSizeInput.value = selectedSize;
+                                const quantityAvailable = parseInt(this.getAttribute("data-quantity"));
 
-                                // Đổi trạng thái active
+                                hiddenSizeInput.value = selectedSize;
+                                maxQuantityInput.value = quantityAvailable;
+
+                                // Reset quantity về 1 (hoặc quantityAvailable nếu nhỏ hơn)
+                                quantityInput.value = quantityAvailable > 0 ? 1 : 0;
+
                                 sizeOptions.forEach(opt => opt.classList.remove("active"));
                                 this.classList.add("active");
                             });
                         });
+
+                        // Nếu người dùng nhập thủ công số lượng thì kiểm tra giới hạn
+                        $('#quantity').on('input', function () {
+                            var currentVal = parseInt($(this).val());
+                            var maxQty = parseInt($('#maxQuantity').val());
+
+                            if (currentVal > maxQty) {
+                                showStockLimitModal();
+                                $(this).val(maxQty > 0 ? maxQty : 1);
+                            } else if (currentVal < 1 || isNaN(currentVal)) {
+                                $(this).val(1);
+                            }
+                        });
+
+                        // Modal hiện thông báo
+                        function showStockLimitModal() {
+                            $('#stockLimitModal').modal('show');
+                        }
                     });
                 </script>
-
-
 
             </body>
 
