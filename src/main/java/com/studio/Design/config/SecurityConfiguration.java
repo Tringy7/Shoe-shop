@@ -1,5 +1,6 @@
 package com.studio.Design.config;
 
+import com.studio.Design.service.CartService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -28,7 +29,7 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public UserDetailsService userDetailsService(UserService userService) {
+    public UserDetailsService userDetailsService(UserService userService, CartService cartService) {
         return new CustomUserDetailsService(userService);
     }
 

@@ -39,6 +39,15 @@
                 <!-- Theme style  -->
                 <link rel="stylesheet" href="/client/css/style.css">
 
+                <style>
+                    .size-option.active {
+                        background-color: #616161;
+                        color: white;
+                        border-radius: 4px;
+                        padding: 2px 6px;
+                    }
+                </style>
+
             </head>
 
             <body>
@@ -65,7 +74,9 @@
 
                     <div class="colorlib-product">
                         <div class="container">
-                            <form:form action="/product/${product.id}" method="POST" modelAttribute="product">
+                            <form action="/product/${product.id}" method="POST">
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+
                                 <div class="row row-pb-lg product-detail-wrap">
                                     <div class="col-sm-8">
                                         <div class="product-entry border">
@@ -83,24 +94,21 @@
                                                     <fmt:formatNumber type="number" value="${product.price}" /> vnd
                                                 </span>
                                             </p>
-                                            <p>Brand ${product.brand}</p>
+                                            <p>Brand ${product.brand}, ${product.color}</p>
                                             <div class="size-wrap">
                                                 <div class="block-26 mb-2">
                                                     <h4>Size</h4>
                                                     <ul>
                                                         <c:forEach items="${product.productDetails}" var="detail">
-                                                            <li><a href="#">${detail.size}</a></li>
+                                                            <li>
+                                                                <a href="#" class="size-option"
+                                                                    data-size="${detail.size}">${detail.size}</a>
+                                                            </li>
                                                         </c:forEach>
                                                     </ul>
                                                 </div>
-                                                <div class="block-26 mb-4">
-                                                    <h4>Color</h4>
-                                                    <ul>
-                                                        <li><a href="#" style="font-size: smaller">${product.color}</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
                                             </div>
+                                            <input type="hidden" id="selectedSize" name="size" value="">
                                             <div class="input-group mb-4">
                                                 <span class="input-group-btn">
                                                     <button type="button" class="quantity-left-minus btn"
@@ -117,13 +125,11 @@
                                                     </button>
                                                 </span>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-sm-12 text-center">
-                                                    <p class="addtocart"><a href="cart.html"
-                                                            class="btn btn-primary btn-addtocart"><i
-                                                                class="icon-shopping-cart"></i> Add to Cart</a></p>
-                                                </div>
-                                            </div>
+                                            <button type="submit"
+                                                class="btn btn-primary btn-addtocart d-inline-flex align-items-center gap-2">
+                                                <i class="icon-shopping-cart"></i>
+                                                Add to Cart
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -149,202 +155,13 @@
                                                             aria-labelledby="pills-description-tab">
                                                             <p>${product.detailDesc}</p>
                                                         </div>
-
-                                                        <div class="tab-pane border fade" id="pills-manufacturer"
-                                                            role="tabpanel" aria-labelledby="pills-manufacturer-tab">
-                                                            <p>Even the all-powerful Pointing has no control about the
-                                                                blind
-                                                                texts it is
-                                                                an almost unorthographic life One day however a small
-                                                                line
-                                                                of blind text
-                                                                by the name of Lorem Ipsum decided to leave for the far
-                                                                World of
-                                                                Grammar.</p>
-                                                            <p>When she reached the first hills of the Italic Mountains,
-                                                                she
-                                                                had a last
-                                                                view back on the skyline of her hometown Bookmarksgrove,
-                                                                the
-                                                                headline of
-                                                                Alphabet Village and the subline of her own road, the
-                                                                Line
-                                                                Lane. Pityful
-                                                                a rethoric question ran over her cheek, then she
-                                                                continued
-                                                                her way.</p>
-                                                        </div>
-
-                                                        <div class="tab-pane border fade" id="pills-review"
-                                                            role="tabpanel" aria-labelledby="pills-review-tab">
-                                                            <div class="row">
-                                                                <div class="col-md-8">
-                                                                    <h3 class="head">23 Reviews</h3>
-                                                                    <div class="review">
-                                                                        <div class="user-img"
-                                                                            style="background-image: url(images/person1.jpg)">
-                                                                        </div>
-                                                                        <div class="desc">
-                                                                            <h4>
-                                                                                <span class="text-left">Jacob
-                                                                                    Webb</span>
-                                                                                <span class="text-right">14 March
-                                                                                    2018</span>
-                                                                            </h4>
-                                                                            <p class="star">
-                                                                                <span>
-                                                                                    <i class="icon-star-full"></i>
-                                                                                    <i class="icon-star-full"></i>
-                                                                                    <i class="icon-star-full"></i>
-                                                                                    <i class="icon-star-half"></i>
-                                                                                    <i class="icon-star-empty"></i>
-                                                                                </span>
-                                                                                <span class="text-right"><a href="#"
-                                                                                        class="reply"><i
-                                                                                            class="icon-reply"></i></a></span>
-                                                                            </p>
-                                                                            <p>When she reached the first hills of the
-                                                                                Italic Mountains,
-                                                                                she had a last view back on the skyline
-                                                                                of
-                                                                                her hometown
-                                                                                Bookmarksgrov</p>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="review">
-                                                                        <div class="user-img"
-                                                                            style="background-image: url(images/person2.jpg)">
-                                                                        </div>
-                                                                        <div class="desc">
-                                                                            <h4>
-                                                                                <span class="text-left">Jacob
-                                                                                    Webb</span>
-                                                                                <span class="text-right">14 March
-                                                                                    2018</span>
-                                                                            </h4>
-                                                                            <p class="star">
-                                                                                <span>
-                                                                                    <i class="icon-star-full"></i>
-                                                                                    <i class="icon-star-full"></i>
-                                                                                    <i class="icon-star-full"></i>
-                                                                                    <i class="icon-star-half"></i>
-                                                                                    <i class="icon-star-empty"></i>
-                                                                                </span>
-                                                                                <span class="text-right"><a href="#"
-                                                                                        class="reply"><i
-                                                                                            class="icon-reply"></i></a></span>
-                                                                            </p>
-                                                                            <p>When she reached the first hills of the
-                                                                                Italic Mountains,
-                                                                                she had a last view back on the skyline
-                                                                                of
-                                                                                her hometown
-                                                                                Bookmarksgrov</p>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="review">
-                                                                        <div class="user-img"
-                                                                            style="background-image: url(images/person3.jpg)">
-                                                                        </div>
-                                                                        <div class="desc">
-                                                                            <h4>
-                                                                                <span class="text-left">Jacob
-                                                                                    Webb</span>
-                                                                                <span class="text-right">14 March
-                                                                                    2018</span>
-                                                                            </h4>
-                                                                            <p class="star">
-                                                                                <span>
-                                                                                    <i class="icon-star-full"></i>
-                                                                                    <i class="icon-star-full"></i>
-                                                                                    <i class="icon-star-full"></i>
-                                                                                    <i class="icon-star-half"></i>
-                                                                                    <i class="icon-star-empty"></i>
-                                                                                </span>
-                                                                                <span class="text-right"><a href="#"
-                                                                                        class="reply"><i
-                                                                                            class="icon-reply"></i></a></span>
-                                                                            </p>
-                                                                            <p>When she reached the first hills of the
-                                                                                Italic Mountains,
-                                                                                she had a last view back on the skyline
-                                                                                of
-                                                                                her hometown
-                                                                                Bookmarksgrov</p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-4">
-                                                                    <div class="rating-wrap">
-                                                                        <h3 class="head">Give a Review</h3>
-                                                                        <div class="wrap">
-                                                                            <p class="star">
-                                                                                <span>
-                                                                                    <i class="icon-star-full"></i>
-                                                                                    <i class="icon-star-full"></i>
-                                                                                    <i class="icon-star-full"></i>
-                                                                                    <i class="icon-star-full"></i>
-                                                                                    <i class="icon-star-full"></i>
-                                                                                    (98%)
-                                                                                </span>
-                                                                                <span>20 Reviews</span>
-                                                                            </p>
-                                                                            <p class="star">
-                                                                                <span>
-                                                                                    <i class="icon-star-full"></i>
-                                                                                    <i class="icon-star-full"></i>
-                                                                                    <i class="icon-star-full"></i>
-                                                                                    <i class="icon-star-full"></i>
-                                                                                    <i class="icon-star-empty"></i>
-                                                                                    (85%)
-                                                                                </span>
-                                                                                <span>10 Reviews</span>
-                                                                            </p>
-                                                                            <p class="star">
-                                                                                <span>
-                                                                                    <i class="icon-star-full"></i>
-                                                                                    <i class="icon-star-full"></i>
-                                                                                    <i class="icon-star-full"></i>
-                                                                                    <i class="icon-star-empty"></i>
-                                                                                    <i class="icon-star-empty"></i>
-                                                                                    (70%)
-                                                                                </span>
-                                                                                <span>5 Reviews</span>
-                                                                            </p>
-                                                                            <p class="star">
-                                                                                <span>
-                                                                                    <i class="icon-star-full"></i>
-                                                                                    <i class="icon-star-full"></i>
-                                                                                    <i class="icon-star-empty"></i>
-                                                                                    <i class="icon-star-empty"></i>
-                                                                                    <i class="icon-star-empty"></i>
-                                                                                    (10%)
-                                                                                </span>
-                                                                                <span>0 Reviews</span>
-                                                                            </p>
-                                                                            <p class="star">
-                                                                                <span>
-                                                                                    <i class="icon-star-full"></i>
-                                                                                    <i class="icon-star-empty"></i>
-                                                                                    <i class="icon-star-empty"></i>
-                                                                                    <i class="icon-star-empty"></i>
-                                                                                    <i class="icon-star-empty"></i>
-                                                                                    (0%)
-                                                                                </span>
-                                                                                <span>0 Reviews</span>
-                                                                            </p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </form:form>
+                            </form>
                         </div>
                     </div>
 
@@ -381,40 +198,42 @@
 
                 <script>
                     $(document).ready(function () {
-
-                        var quantitiy = 0;
+                        // Xử lý nút tăng số lượng
                         $('.quantity-right-plus').click(function (e) {
-
-                            // Stop acting like a button
                             e.preventDefault();
-                            // Get the field name
                             var quantity = parseInt($('#quantity').val());
-
-                            // If is not undefined
-
                             $('#quantity').val(quantity + 1);
-
-
-                            // Increment
-
                         });
 
+                        // Xử lý nút giảm số lượng
                         $('.quantity-left-minus').click(function (e) {
-                            // Stop acting like a button
                             e.preventDefault();
-                            // Get the field name
                             var quantity = parseInt($('#quantity').val());
-
-                            // If is not undefined
-
-                            // Increment
-                            if (quantity > 0) {
+                            if (quantity > 1) {
                                 $('#quantity').val(quantity - 1);
                             }
                         });
 
+                        // Xử lý chọn size
+                        const sizeOptions = document.querySelectorAll(".size-option");
+                        const hiddenSizeInput = document.getElementById("selectedSize");
+
+                        sizeOptions.forEach(option => {
+                            option.addEventListener("click", function (e) {
+                                e.preventDefault();
+
+                                // Gán giá trị size vào input hidden
+                                const selectedSize = this.getAttribute("data-size");
+                                hiddenSizeInput.value = selectedSize;
+
+                                // Đổi trạng thái active
+                                sizeOptions.forEach(opt => opt.classList.remove("active"));
+                                this.classList.add("active");
+                            });
+                        });
                     });
                 </script>
+
 
 
             </body>

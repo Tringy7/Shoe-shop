@@ -25,4 +25,8 @@ public class ProductDetailService {
     public void deleteProductDetail(Long id) {
         this.productDetailRepository.deleteById(id);
     }
+
+    public ProductDetail getProductDetailBySize(Long  productId, String size) {
+        return this.productDetailRepository.fingByfindByProductIdAndSize(productId, size);
+    }
 }

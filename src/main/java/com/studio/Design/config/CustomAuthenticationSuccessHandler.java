@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.studio.Design.service.CartService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +13,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
+import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
+import com.studio.Design.domain.Cart;
+import com.studio.Design.domain.User;
 import com.studio.Design.service.UserService;
 
 import jakarta.servlet.ServletException;
@@ -25,6 +29,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 
     @Autowired
     private UserService userService;
+    private CartService cartService;
     protected Log logger = LogFactory.getLog(this.getClass());
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
@@ -62,19 +67,26 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         if (session == null) {
             return;
         }
-        // String email = authentication.getName();
-        // User user = userService.getUserByEmail(email);
-        // session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
-        // if (user != null) {
-        //     session.setAttribute("avatar", user.getAvatar());
-        //     session.setAttribute("fullName", user.getFullName());
-        //     session.setAttribute("email", user.getEmail());
-        //     Long sum = 0L;
-        //     if (user.getCart() != null) {
-        //         sum = user.getCart().getSum();
-        //     }
-        //     session.setAttribute("sum", sum);
-        // }
+        String email = authentication.getName();
+        User user = userService.getUserByEmail(email);
+        session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
+        if (user != null) {
+            // session.setAttribute("avatar", user.getAvatar());
+            // session.setAttribute("fullName", user.getFullName());
+            session.setAttribute("id", user.getId());
+
+            Long sum = 0L;
+            if (user.getCart() != null) {
+                sum = user.getCart().getSum();
+                session.setAttribute("cart", user.getCart());
+            } else {
+                Cart cart = new Cart();
+                cart.setUser(user);
+                cart = this.cartService.saveCart(cart);
+                session.setAttribute("cart", cart);
+            }
+            session.setAttribute("sum", sum);
+        }
     }
 
     @Override
