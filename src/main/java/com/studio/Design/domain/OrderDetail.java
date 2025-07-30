@@ -26,6 +26,8 @@ public class OrderDetail {
     @JoinColumn(name = "orderId")
     private Order order;
 
+    private String sizeProduct;
+
     @ManyToOne
     @JoinColumn(name = "productId")
     private Product product;

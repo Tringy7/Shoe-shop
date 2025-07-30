@@ -1,8 +1,10 @@
 package com.studio.Design.service;
 
+import java.util.List;
 import java.util.Optional;
 
-import org.springframework.stereotype.Controller;
+import org.hibernate.validator.internal.util.stereotypes.Lazy;
+import org.springframework.stereotype.Service;
 
 import com.studio.Design.domain.Cart;
 import com.studio.Design.domain.CartDetail;
@@ -13,12 +15,13 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
-@Controller
+@Service
 @AllArgsConstructor
 public class CartDetailService {
 
     private CartDetailRepository cartDetailRepository;
-    private CartService cartService;
+    private @Lazy
+    CartService cartService;
 
     @Transactional
     public void saveCartDetail(CartDetail cartDetail) {
@@ -47,6 +50,18 @@ public class CartDetailService {
                 cart.setSum(temp);
                 this.cartService.saveCart(cart);
                 session.setAttribute("sum", temp);
+            }
+        }
+    }
+
+    @Transactional
+    public void handleSaveCart(Cart cart) {
+        List<CartDetail> cartDetail = cart.getCartDetails();
+        for (CartDetail it : cartDetail) {
+            Optional<CartDetail> cartDetailCheck = this.cartDetailRepository.findById(it.getId());
+            if (cartDetailCheck.isPresent()) {
+                CartDetail temp = cartDetailCheck.get();
+                temp.setQuantity(it.getQuantity());
             }
         }
     }

@@ -37,6 +37,7 @@ public class Order {
     private String receiverAddress;
     private String receiverPhone;
     private String status;
+    private String paymentMethod;
 
     private double totalPrice;
 }

@@ -6,23 +6,20 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.studio.Design.domain.Cart;
 import com.studio.Design.domain.CartDetail;
 import com.studio.Design.domain.User;
+import com.studio.Design.service.CartDetailService;
 import com.studio.Design.service.CartService;
 import com.studio.Design.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
-
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
-import com.studio.Design.service.CartDetailService;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @AllArgsConstructor
@@ -48,7 +45,16 @@ public class CartController {
         }
         model.addAttribute("cartDetail", cartDetails);
         model.addAttribute("totalPrice", totalPrice);
+        model.addAttribute("cart", cart);
         return "client/cart/show";
+    }
+
+    @PostMapping("/cart")
+    public String handleCartToOrder(@ModelAttribute("cart") Cart cart) {
+        // HttpSession session = request.getSession(false);
+        // Long userId = (Long) session.getAttribute("id");
+        this.cartDetailService.handleSaveCart(cart);
+        return "redirect:/checkout";
     }
 
     @PostMapping("/cart/delete/{id}")

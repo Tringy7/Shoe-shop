@@ -14,7 +14,6 @@ import lombok.AllArgsConstructor;
 public class CartService {
 
     private CartRepository cartRepository;
-    private UserService userService;
 
     @Transactional
     public Cart saveCart(Cart cart) {
@@ -28,5 +27,10 @@ public class CartService {
     @Transactional
     public void deleteCart(Cart cart) {
         this.cartRepository.delete(cart);
+    }
+
+    @Transactional
+    public void handleCartToOrder(Cart cart, Long userId) {
+
     }
 }
