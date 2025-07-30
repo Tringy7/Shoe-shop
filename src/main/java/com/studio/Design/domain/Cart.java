@@ -30,6 +30,7 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private double totalPrice;
     private Long sum;
 
     @OneToOne()

@@ -43,6 +43,8 @@ public class CartController {
         for (CartDetail cartDetail : cartDetails) {
             totalPrice += cartDetail.getPrice() * cartDetail.getQuantity();
         }
+        cart.setTotalPrice(totalPrice);
+        this.cartService.saveCart(cart);
         model.addAttribute("cartDetail", cartDetails);
         model.addAttribute("totalPrice", totalPrice);
         model.addAttribute("cart", cart);
@@ -65,12 +67,24 @@ public class CartController {
     }
 
     @GetMapping("/checkout")
-    public String showCheckOut(Model model) {
+    public String showCheckOut(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        Long id = (Long) session.getAttribute("id");
+        User user = this.userService.getUser(id);
+        Cart cart = new Cart();
+        double temp = 0;
+        if (user != null) {
+            cart = this.cartService.getCartByUser(user);
+            temp = cart.getTotalPrice();
+        }
+        model.addAttribute("cart", cart);
+        model.addAttribute("totalPrice", temp);
         return "client/cart/checkout";
     }
 
     @GetMapping("/complete")
     public String showComplete(Model model) {
+
         return "client/cart/complete";
     }
 
