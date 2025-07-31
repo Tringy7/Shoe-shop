@@ -30,4 +30,9 @@ public class ProductDetailService {
     public ProductDetail getProductDetailBySize(Product product, String size) {
         return this.productDetailRepository.findByProductAndSize(product, size);
     }
+
+    @Transactional
+    public void saveProductDetail(ProductDetail productDetail) {
+        this.productDetailRepository.save(productDetail);
+    }
 }

@@ -7,6 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.studio.Design.domain.Cart;
 import com.studio.Design.domain.Role;
 import com.studio.Design.domain.User;
 import com.studio.Design.domain.dto.UserDTO;

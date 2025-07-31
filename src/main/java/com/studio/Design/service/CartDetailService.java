@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.studio.Design.domain.Cart;
 import com.studio.Design.domain.CartDetail;
 import com.studio.Design.domain.Product;
+import com.studio.Design.domain.User;
 import com.studio.Design.repository.CartDetailRepository;
 
 import jakarta.servlet.http.HttpSession;
@@ -55,14 +56,25 @@ public class CartDetailService {
     }
 
     @Transactional
-    public void handleSaveCart(Cart cart) {
+    public void handleSaveCart(Cart cart, User user) {
+        Cart cartCheck = this.cartService.getCartByUser(user);
+        if (cart != null) {
+            cartCheck.setTotalPrice(cart.getTotalPrice());
+            this.cartService.saveCart(cartCheck);
+        }
         List<CartDetail> cartDetail = cart.getCartDetails();
         for (CartDetail it : cartDetail) {
             Optional<CartDetail> cartDetailCheck = this.cartDetailRepository.findById(it.getId());
             if (cartDetailCheck.isPresent()) {
                 CartDetail temp = cartDetailCheck.get();
                 temp.setQuantity(it.getQuantity());
+                this.cartDetailRepository.save(temp);
             }
         }
+    }
+
+    @Transactional
+    public void deleteCartDetail(CartDetail cartDetail) {
+        this.cartDetailRepository.delete(cartDetail);
     }
 }

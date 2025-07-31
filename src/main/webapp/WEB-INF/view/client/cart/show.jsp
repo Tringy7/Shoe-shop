@@ -228,6 +228,8 @@
                                                                             type="hidden" cssClass="hidden-quantity"
                                                                             id="hidden-quantity-${status.index}" />
                                                                     </c:forEach>
+                                                                    <form:input path="totalPrice" type="hidden"
+                                                                        cssClass="hidden-quantity" />
                                                                     <button type="submit"
                                                                         class="btn btn-primary mt-3">Checkout</button>
                                                                 </form:form>
@@ -307,11 +309,17 @@
                             const shipEl = document.querySelector('.shipping');
                             let shipping = shipEl ? parsePrice(shipEl.textContent) : 0;
 
-                            // Tính Grand Total = Subtotal + Shipping (có thể thêm thuế nếu muốn)
+                            // Tính Grand Total
                             const grandTotal = subtotal + shipping;
-                            const grandEl = document.querySelector('.grand-total');
-                            if (grandEl) {
-                                grandEl.textContent = formatPrice(grandTotal);
+                            const grandValueEl = document.querySelector('.grand-total span:nth-child(2)');
+                            if (grandValueEl) {
+                                grandValueEl.textContent = formatPrice(grandTotal);
+                            }
+
+                            // ✅ Cập nhật vào input hidden cart.totalPrice
+                            const totalPriceInput = document.querySelector('input[name="totalPrice"]');
+                            if (totalPriceInput) {
+                                totalPriceInput.value = grandTotal;
                             }
                         }
 

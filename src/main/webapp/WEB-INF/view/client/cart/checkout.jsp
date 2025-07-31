@@ -38,6 +38,12 @@
 
                 <!-- Theme style  -->
                 <link rel="stylesheet" href="/client/css/style.css">
+                <style>
+                    .col-lg-8 {
+                        background-color: whitesmoke;
+                        height: 350px;
+                    }
+                </style>
 
             </head>
 
@@ -83,106 +89,114 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-8">
-                                    <form method="post" class="colorlib-form">
+                            <form:form method="post" action="/checkout" modelAttribute="order">
+                                <div class="row">
+                                    <div class="col-lg-8">
+
                                         <h2>Billing Details</h2>
                                         <div class="row">
 
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label for="fname">Full name receiver</label>
-                                                    <input type="text" id="fname" class="form-control"
-                                                        placeholder="Your firstname">
+                                                    <form:input path="receiverName" type="text" id="fname"
+                                                        class="form-control" placeholder="Your firstname" />
                                                 </div>
                                             </div>
 
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label for="fname">Address receiver</label>
-                                                    <input type="text" id="address" class="form-control"
-                                                        placeholder="Enter Your Address">
+                                                    <form:input path="receiverAddress" type="text" id="address"
+                                                        class="form-control" placeholder="Enter Your Address" />
                                                 </div>
                                             </div>
 
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label for="Phone">Phone number receiver</label>
-                                                    <input type="text" id="zippostalcode" class="form-control"
-                                                        placeholder="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-
-                                <div class="col-lg-4">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="cart-detail">
-                                                <h2>Cart Total</h2>
-                                                <ul>
-                                                    <li>
-                                                        <ul>
-                                                            <c:forEach items="${cart.cartDetails}" var="cartDetailList"
-                                                                varStatus="status">
-                                                                <li><span>${cartDetailList.quantity} x
-                                                                        ${cartDetailList.product.name}</span>
-                                                                    <span>
-                                                                        <fmt:formatNumber type="number"
-                                                                            value="${cartDetailList.price}" /> vnd
-                                                                    </span>
-                                                                </li>
-                                                            </c:forEach>
-                                                        </ul>
-                                                    </li>
-                                                    <li><span>Shipping</span> <span>0.00 vnd</span></li>
-                                                    <li><span>Order Total</span> <span>
-                                                            <fmt:formatNumber type="number" value="${totalPrice}" />
-                                                            vnd
-                                                        </span></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <div class="w-100"></div>
-
-                                        <div class="col-md-12">
-                                            <div class="cart-detail">
-                                                <h2>Payment Method</h2>
-                                                <div class="form-group">
-                                                    <div class="col-md-12">
-                                                        <div class="radio">
-                                                            <label><input type="radio" name="optradio"> Direct Bank
-                                                                Tranfer</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <div class="col-md-12">
-                                                        <div class="radio">
-                                                            <label><input type="radio" name="optradio"> Check
-                                                                Payment</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <div class="col-md-12">
-                                                        <div class="radio">
-                                                            <label><input type="radio" name="optradio"> Paypal</label>
-                                                        </div>
-                                                    </div>
+                                                    <form:input path="receiverPhone" type="text" id="zippostalcode"
+                                                        class="form-control" placeholder="" />
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-12 text-center">
-                                            <p><a href="/complete" class="btn btn-primary">Place an order</a></p>
+
+                                    <div class="col-lg-4">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="cart-detail">
+                                                    <h2>Cart Total</h2>
+                                                    <ul>
+                                                        <li>
+                                                            <ul>
+                                                                <c:forEach items="${cart.cartDetails}"
+                                                                    var="cartDetailList" varStatus="status">
+                                                                    <li><span>${cartDetailList.quantity} x
+                                                                            ${cartDetailList.product.name}</span>
+                                                                        <span>
+                                                                            <fmt:formatNumber type="number"
+                                                                                value="${cartDetailList.price}" /> vnd
+                                                                        </span>
+                                                                    </li>
+                                                                </c:forEach>
+                                                            </ul>
+                                                        </li>
+                                                        <li><span>Shipping</span> <span>0.00 vnd</span></li>
+                                                        <li><span>Order Total</span> <span>
+                                                                <fmt:formatNumber type="number" value="${totalPrice}" />
+                                                                vnd
+                                                            </span></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                            <div class="w-100"></div>
+
+                                            <div class="col-md-12">
+                                                <div class="cart-detail">
+                                                    <h2>Payment Method</h2>
+                                                    <div class="form-group">
+                                                        <div class="col-md-12">
+                                                            <div class="radio">
+                                                                <label>
+                                                                    <form:radiobutton path="paymentMethod"
+                                                                        value="bank"/> Direct Bank Transfer <br>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="col-md-12">
+                                                            <div class="radio">
+                                                                <label>
+                                                                    <form:radiobutton path="paymentMethod"
+                                                                        value="check" /> Check Payment <br>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="col-md-12">
+                                                            <div class="radio">
+                                                                <label>
+                                                                    <form:radiobutton path="paymentMethod"
+                                                                        value="paypal" /> Paypal
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 text-center">
+                                                <p><button type="submit" class="btn btn-primary">Place an order</button></p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </form:form>
                         </div>
                     </div>
 
@@ -219,5 +233,6 @@
                 <script src="/client/js/main.js"></script>
 
             </body>
+            
 
             </html>

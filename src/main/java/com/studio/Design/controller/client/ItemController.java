@@ -14,10 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.studio.Design.domain.Cart;
-import com.studio.Design.domain.CartDetail;
 import com.studio.Design.domain.Product;
-import com.studio.Design.domain.ProductDetail;
 import com.studio.Design.domain.Product_;
 import com.studio.Design.domain.dto.ProductCriterialDTO;
 import com.studio.Design.service.CartDetailService;
