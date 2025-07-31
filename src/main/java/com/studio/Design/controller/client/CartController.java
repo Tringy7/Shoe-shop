@@ -41,11 +41,18 @@ public class CartController {
         if (user != null) {
             cart = this.cartService.getCartByUser(user);
         }
-        List<CartDetail> cartDetails = cart.getCartDetails() != null ? cart.getCartDetails() : new ArrayList<CartDetail>();
+        if (cart == null) {
+            cart = new Cart();
+        }
+        List<CartDetail> cartDetails = new ArrayList<>();
+        if (cart != null && cart.getCartDetails() != null) {
+            cartDetails = cart.getCartDetails();
+        }
         double totalPrice = 0L;
         for (CartDetail cartDetail : cartDetails) {
             totalPrice += cartDetail.getPrice() * cartDetail.getQuantity();
         }
+        cart.setUser(user);
         cart.setTotalPrice(totalPrice);
         this.cartService.saveCart(cart);
         model.addAttribute("cartDetail", cartDetails);

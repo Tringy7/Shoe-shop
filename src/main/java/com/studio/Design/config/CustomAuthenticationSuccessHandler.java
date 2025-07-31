@@ -70,7 +70,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
         if (user != null) {
             // session.setAttribute("avatar", user.getAvatar());
-            // session.setAttribute("fullName", user.getFullName());
+            session.setAttribute("fullName", user.getFullName());
             session.setAttribute("id", user.getId());
 
             Long sum = 0L;
