@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <style>
-        .logout-btn  {
+        .logout-btn {
             width: 113px;
         }
     </style>
@@ -21,8 +21,9 @@
                                             <li class="has-dropdown"><a href="/">${sessionScope.fullName}</a>
                                                 <ul class="dropdown">
                                                     <li><a href="/information">Information user</a></li>
-                                                    <li><a href="order-complete.html">Purchase history</a></li>
-                                                    <li> <button type="submit" class="logout-btn btn btn-primary">Logout</button>
+                                                    <li><a href="/history">Purchase history</a></li>
+                                                    <li> <button type="submit"
+                                                            class="logout-btn btn btn-primary">Logout</button>
                                                     </li>
                                                 </ul>
                                             </li>

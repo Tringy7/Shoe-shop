@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.studio.Design.domain.Cart;
@@ -75,5 +77,9 @@ public class OrderService {
         }
 
         this.orderDetailService.saveOrderDetailList(orderDetails);
+    }
+
+    public Page getOrder(User user, Pageable pageable) {
+        return this.orderRepository.findByUser(user, pageable);
     }
 }
