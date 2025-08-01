@@ -335,7 +335,7 @@
                                                     </c:if>
 
                                                     <c:if test="${totalPages < 0}">
-                                                        <div>Không có sản phẩm</div>
+                                                        <div>No product</div>
                                                     </c:if>
                                                 </div>
                                             </div>

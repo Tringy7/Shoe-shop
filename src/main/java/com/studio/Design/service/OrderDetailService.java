@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.studio.Design.domain.OrderDetail;
 import com.studio.Design.repository.OrderDetailRepository;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -17,5 +18,14 @@ public class OrderDetailService {
 
     public void saveOrderDetailList(List<OrderDetail> orderList) {
         this.orderDetailRepository.saveAll(orderList);
+    }
+
+    public OrderDetail getOrderDetail(Long id) {
+        return this.orderDetailRepository.findById(id).get();
+    }
+
+    @Transactional
+    public void handleDeleteOrderDetail(OrderDetail orderDetail) {
+        this.orderDetailRepository.delete(orderDetail);
     }
 }

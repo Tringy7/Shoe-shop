@@ -2,6 +2,7 @@ package com.studio.Design.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -81,5 +82,27 @@ public class OrderService {
 
     public Page getOrder(User user, Pageable pageable) {
         return this.orderRepository.findByUser(user, pageable);
+    }
+
+    public Page getAllOrder(Pageable pageable) {
+        return this.orderRepository.findAll(pageable);
+    }
+
+    public Order getAOrder(Long id) {
+        return this.orderRepository.findById(id).get();
+    }
+
+    public void handleDeleteOrder(Long id) {
+        Optional<Order> orderOptional = this.orderRepository.findById(id);
+        if (orderOptional.isPresent()) {
+            Order order = orderOptional.get();
+            List<OrderDetail> orderDetails = order.getOrderDetails();
+            if (orderDetails != null) {
+                for (OrderDetail it : orderDetails) {
+                    this.orderDetailService.handleDeleteOrderDetail(it);
+                }
+                this.orderRepository.delete(order);
+            }
+        }
     }
 }

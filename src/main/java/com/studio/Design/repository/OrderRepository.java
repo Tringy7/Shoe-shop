@@ -10,4 +10,6 @@ import com.studio.Design.domain.User;
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
     Page<Order> findByUser(User user, Pageable pageable);
+
+    Page<Order> findAll(Pageable pageable);
 }
