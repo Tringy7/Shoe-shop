@@ -7,28 +7,25 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.studio.Design.domain.Cart;
+import com.studio.Design.domain.Description;
 import com.studio.Design.domain.Role;
 import com.studio.Design.domain.User;
 import com.studio.Design.domain.dto.UserDTO;
+import com.studio.Design.repository.DescriptionRepository;
 import com.studio.Design.repository.UserRepository;
 
 import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
 
 @Service
+@AllArgsConstructor
 public class UserService {
 
     private UserRepository userRepository;
     private RoleService roleService;
     private PasswordEncoder passwordEncoder;
     private ModelMapper modelMapper;
-
-    public UserService(UserRepository userRepository, RoleService roleService, PasswordEncoder passwordEncoder, ModelMapper modelMapper) {
-        this.userRepository = userRepository;
-        this.roleService = roleService;
-        this.passwordEncoder = passwordEncoder;
-        this.modelMapper = modelMapper;
-    }
+    private DescriptionRepository descRepository;
 
     public List<User> getAllUser() {
         return this.userRepository.findAll();
@@ -83,5 +80,15 @@ public class UserService {
                 .fullName(userDTO.getName())
                 .build();
         this.userRepository.save(user);
+    }
+
+    @Transactional
+    public void handleContact(User temp, User user, String mess) {
+        temp.setFullName(user.getFullName());
+        this.userRepository.save(temp);
+        Description desc = new Description();
+        desc.setDescription(mess);
+        desc.setUser(temp);
+        this.descRepository.save(desc);
     }
 }

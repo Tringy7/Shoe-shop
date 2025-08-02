@@ -2,8 +2,6 @@ package com.studio.Design.domain;
 
 import java.util.List;
 
-import com.studio.Design.service.validator.PasswordValidator;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -63,4 +61,7 @@ public class User {
 
     @OneToOne(mappedBy = "user")
     private Cart cart;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Description> descriptions;
 }
