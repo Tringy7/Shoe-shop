@@ -69,11 +69,9 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         User user = this.userService.getUserByEmail(email);
         session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
         if (user != null) {
-            // session.setAttribute("avatar", user.getAvatar());
             session.setAttribute("fullName", user.getFullName());
             session.setAttribute("id", user.getId());
             session.setAttribute("avatar", user.getAvatar());
-            session.setAttribute("message", user.getDescriptions());
 
             Long sum = 0L;
             if (user.getCart() != null) {
