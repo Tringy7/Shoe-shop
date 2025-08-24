@@ -34,7 +34,7 @@
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <img class="rounded-circle me-lg-2" src="/admin/img/user/${sessionScope.avatar}" alt=""
                                 style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex">John Doe</span>
+                            <span class="d-none d-lg-inline-flex">${sessionScope.fullName}</span>
                         </a>
                         <form action="/logout" method="POST">
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
